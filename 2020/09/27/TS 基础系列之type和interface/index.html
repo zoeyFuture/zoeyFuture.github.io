@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="图片来源：https:&#x2F;&#x2F;ss3.bdstatic.com&#x2F;70cFv8Sh_Q1YnxGkpoWK1HF6hhy&#x2F;it&#x2F;u&#x3D;1573783262,3178598711&amp;fm&#x3D;26&amp;gp&#x3D;0.jpg  [TOC] 一 前言在ts中type和interface关键字都可用来定义数据类型，在很多开源项目中都会大量用到，那这两者到底有什么区别，使用场景有什么不同呢。下面我们仔细来探讨">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TS 基础系列之type和interface">
+<meta property="og:url" content="http://yoursite.com/2020/09/27/TS%20%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E4%B9%8Btype%E5%92%8Cinterface/index.html">
+<meta property="og:site_name" content="前端小谁谁">
+<meta property="og:description" content="图片来源：https:&#x2F;&#x2F;ss3.bdstatic.com&#x2F;70cFv8Sh_Q1YnxGkpoWK1HF6hhy&#x2F;it&#x2F;u&#x3D;1573783262,3178598711&amp;fm&#x3D;26&amp;gp&#x3D;0.jpg  [TOC] 一 前言在ts中type和interface关键字都可用来定义数据类型，在很多开源项目中都会大量用到，那这两者到底有什么区别，使用场景有什么不同呢。下面我们仔细来探讨">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1573783262,3178598711&fm=26&gp=0.jpg">
+<meta property="article:published_time" content="2020-09-27T11:58:43.189Z">
+<meta property="article:modified_time" content="2021-02-05T02:15:06.241Z">
+<meta property="article:author" content="赵伟">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1573783262,3178598711&fm=26&gp=0.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/09/27/TS 基础系列之type和interface/"/>
+
+
+
+
+
+  <title>TS 基础系列之type和interface | 前端小谁谁</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">前端小谁谁</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">前端小猿，努力工作</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/27/TS%20%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E4%B9%8Btype%E5%92%8Cinterface/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="赵伟">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端小谁谁">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">TS 基础系列之type和interface</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-09-27T19:58:43+08:00">
+                2020-09-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1573783262,3178598711&fm=26&gp=0.jpg" alt=""></p>
+<blockquote>
+<p>图片来源：<a href="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1573783262,3178598711&amp;fm=26&amp;gp=0.jpg" target="_blank" rel="noopener">https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1573783262,3178598711&amp;fm=26&amp;gp=0.jpg</a></p>
+</blockquote>
+<p>[TOC]</p>
+<h2 id="一-前言"><a href="#一-前言" class="headerlink" title="一 前言"></a>一 前言</h2><p>在ts中type和interface关键字都可用来定义数据类型，在很多开源项目中都会大量用到，那这两者到底有什么区别，使用场景有什么不同呢。下面我们仔细来探讨一下</p>
+<h2 id="二-正文"><a href="#二-正文" class="headerlink" title="二 正文"></a>二 正文</h2><h3 id="2-1-interface（接口）"><a href="#2-1-interface（接口）" class="headerlink" title="2.1 interface（接口）"></a>2.1 interface（接口）</h3><p>interface表示接口，在ts中也可以用来定义数据类型，但是仅限于对象、函数、类类型</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对象类型</span></span><br><span class="line">interface User &#123;</span><br><span class="line">    name: string</span><br><span class="line">    age: number</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数类型</span></span><br><span class="line">interface SetUser &#123;</span><br><span class="line">    (name: string, <span class="attr">age</span>: number):  <span class="keyword">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 类类型接口</span></span><br><span class="line">interface ClockInterface &#123;</span><br><span class="line">  currentTime: <span class="built_in">Date</span>;</span><br><span class="line">  setTime(d: <span class="built_in">Date</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 接口实现</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Clock</span> <span class="title">implements</span> <span class="title">ClockInterface</span> </span>&#123;</span><br><span class="line">  currentTime: <span class="built_in">Date</span>;</span><br><span class="line">  setTime(d: <span class="built_in">Date</span>) &#123;</span><br><span class="line">      <span class="keyword">this</span>.currentTime = d;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">constructor</span>(h: number, m: number) &#123; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>interface定义的类型是可以继承的，并且可以多继承</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">interface Cat &#123;</span><br><span class="line">    eat: string;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">interface Dog &#123;</span><br><span class="line">    pull: string;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 类型继承</span></span><br><span class="line">interface Zoom extends Cat, Dog &#123;</span><br><span class="line">    play: string;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> zoom: Zoom = &#123;</span><br><span class="line">    eat: <span class="string">'疯狂吃'</span>,</span><br><span class="line">    pull: <span class="string">'疯狂拉'</span>,</span><br><span class="line">    play: <span class="string">'疯狂撸'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="2-2-type（类型别名）"><a href="#2-2-type（类型别名）" class="headerlink" title="2.2 type（类型别名）"></a>2.2 type（类型别名）</h3><p>ts中type表示是类型别名，即给类型起一个新的名字。type有时候和interface非常像，但是type可以用于基本类型、联合类型、元祖以及其他任何需要手写的类型</p>
+<ul>
+<li><p>基本类型</p>
+<p>type可以对基本类型重命名，这里不会新建一个类型，只是创建一个新名字 IString 来引用 string类型</p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 基本类型别名</span></span><br><span class="line">type IString = string; </span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> name1: IString = <span class="string">'张三'</span>;</span><br><span class="line"><span class="keyword">const</span> name2: string = <span class="string">'李四'</span>;</span><br></pre></td></tr></table></figure>
+<p>type</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对象类型</span></span><br><span class="line">type User = &#123;</span><br><span class="line">    name: string</span><br><span class="line">    age: number</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数类型</span></span><br><span class="line">type SetUser = <span class="function">(<span class="params">name: string, age: number</span>) =&gt;</span> <span class="keyword">void</span>;</span><br></pre></td></tr></table></figure>
+
+<p>interface</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对象类型</span></span><br><span class="line">interface User &#123;</span><br><span class="line">    name: string</span><br><span class="line">    age: number</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数类型</span></span><br><span class="line">interface SetUser &#123;</span><br><span class="line">    (name: string, <span class="attr">age</span>: number):  <span class="keyword">void</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>声明对象或函数时，使用方式都是一样的</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> user: User = &#123;</span><br><span class="line">    name: <span class="string">'张三'</span>,</span><br><span class="line">    age: <span class="number">24</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> setUser: SetUser;</span><br><span class="line"></span><br><span class="line">setUser = <span class="function">(<span class="params">name: string, age: number</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'SetUser:'</span>, name, age)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">setUser(<span class="string">'10'</span>, <span class="number">10</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>类型继承（extends）</li>
+</ul>
+<p>type和interface都要支持继承（extends），并且两者都可以相互继承，也就是说type可以extend interface，interface也可以extends type，仅在语法上有区别</p>
+<p>type</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对象类型</span></span><br><span class="line">type User = &#123;</span><br><span class="line">    name: string</span><br><span class="line">    age: number</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 类型继承: 用以扩展字段</span></span><br><span class="line">type Teacher = User &amp; &#123;</span><br><span class="line">    education: string, <span class="comment">// 学历</span></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明变量</span></span><br><span class="line"><span class="keyword">const</span> teacher: Teacher = &#123;</span><br><span class="line">    name: <span class="string">'张三'</span>,</span><br><span class="line">    age: <span class="number">24</span>,</span><br><span class="line">    education: <span class="string">'本科'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>interface</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对象类型</span></span><br><span class="line">interface User &#123;</span><br><span class="line">    name: string</span><br><span class="line">    age: number</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 类型继承 用以扩展字段</span></span><br><span class="line">interface Teacher extends User &#123;</span><br><span class="line">    education: string, <span class="comment">// 学历</span></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明变量</span></span><br><span class="line"><span class="keyword">const</span> teacher: Teacher = &#123;</span><br><span class="line">    name: <span class="string">'张三'</span>,</span><br><span class="line">    age: <span class="number">24</span>,</span><br><span class="line">    education: <span class="string">'本科'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>相互继承</p>
+<p>type extends interface</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">interface User &#123;</span><br><span class="line">    name: string</span><br><span class="line">    age: number</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// type extends interface</span></span><br><span class="line">type Teacher = User &amp; &#123;</span><br><span class="line">    education: string, <span class="comment">// 学历</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>interface extends type</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">type User = &#123;</span><br><span class="line">    name: string</span><br><span class="line">    age: number</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// interface extends type</span></span><br><span class="line">interface Teacher extends User &#123;</span><br><span class="line">    education: string, <span class="comment">// 学历</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="2-2-不同点"><a href="#2-2-不同点" class="headerlink" title="2.2 不同点"></a>2.2 不同点</h3><ul>
+<li>type 可以声明几杯类型别名、联合类型、元祖等类型</li>
+<li>type语句中还可以使用typeof 获取实例的类型进行赋值</li>
+</ul>
+<ul>
+<li>interface 能够声明合并，而type不行</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ul>
+<li>[1] <a href="https://blog.csdn.net/weixin_33724659/article/details/88040828" target="_blank" rel="noopener">Typescript 中的 interface 和 type 到底有什么区别</a></li>
+<li>[2] <a href="https://juejin.im/post/6844904114925600776" target="_blank" rel="noopener">TypeScript 中 interface 和 type 使用区别介绍</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/07/%E5%B0%81%E8%A3%85%E6%97%A5%E5%B8%B8%E5%B7%A5%E5%85%B7%E5%87%BD%E6%95%B0%E5%92%8CHooks/" rel="next" title="封装日常工具函数和Hooks">
+                <i class="fa fa-chevron-left"></i> 封装日常工具函数和Hooks
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/09/27/Docker%20%E5%A6%82%E4%BD%95%E9%83%A8%E7%BD%B2%20Node%20%E5%BA%94%E7%94%A8/" rel="prev" title="Docker 如何部署 Node 应用">
+                Docker 如何部署 Node 应用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">赵伟</p>
+              <p class="site-description motion-element" itemprop="description">前段杂货铺，正在储货中...</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-前言"><span class="nav-number">1.</span> <span class="nav-text">一 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-正文"><span class="nav-number">2.</span> <span class="nav-text">二 正文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-interface（接口）"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 interface（接口）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-type（类型别名）"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 type（类型别名）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-不同点"><span class="nav-number">2.3.</span> <span class="nav-text">2.2 不同点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number"></span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文章"><span class="nav-number"></span> <span class="nav-text">参考文章</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">赵伟</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

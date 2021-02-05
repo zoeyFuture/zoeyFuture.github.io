@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="[TOC] 线程与进程进程（Process）进程是一个具有一定独立功能的程序在一个数据集上的一次动态执行的过程，是操作系统进行资源分配和调度的一个独立单位，是应用程序运行的载体。 进程是一种抽象的概念，从来没有统一的标准定义。进程一般由程序、数据集合和进程控制块三部分组成：  程序用于描述进程要完成的功能，是控制进程执行的指令集； 数据集合是程序在执行时所需要的数据和工作区； 程序控制块(Prog">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node ORM Sequelize 小记">
+<meta property="og:url" content="http://yoursite.com/2020/10/24/Node%20ORM%20Sequelize%20%E5%B0%8F%E8%AE%B0/index.html">
+<meta property="og:site_name" content="前端小谁谁">
+<meta property="og:description" content="[TOC] 线程与进程进程（Process）进程是一个具有一定独立功能的程序在一个数据集上的一次动态执行的过程，是操作系统进行资源分配和调度的一个独立单位，是应用程序运行的载体。 进程是一种抽象的概念，从来没有统一的标准定义。进程一般由程序、数据集合和进程控制块三部分组成：  程序用于描述进程要完成的功能，是控制进程执行的指令集； 数据集合是程序在执行时所需要的数据和工作区； 程序控制块(Prog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gw.aikan.miguvideo.com/ifs/img/b45a60769b3655c321ec921b36f99241_2.png">
+<meta property="og:image" content="https://gw.aikan.miguvideo.com/ifs/img/12204f0ca1fb0b5f996991f02fb8b6c9_1.png">
+<meta property="og:image" content="https://gw.aikan.miguvideo.com/ifs/img/682ca4ec5157e7dac5f8dcecb2a7e0ec_4.png">
+<meta property="article:published_time" content="2020-10-24T06:22:17.517Z">
+<meta property="article:modified_time" content="2021-02-05T02:16:27.482Z">
+<meta property="article:author" content="赵伟">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gw.aikan.miguvideo.com/ifs/img/b45a60769b3655c321ec921b36f99241_2.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/10/24/Node ORM Sequelize 小记/"/>
+
+
+
+
+
+  <title>Node ORM Sequelize 小记 | 前端小谁谁</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">前端小谁谁</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">前端小猿，努力工作</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/24/Node%20ORM%20Sequelize%20%E5%B0%8F%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="赵伟">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端小谁谁">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Node ORM Sequelize 小记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-10-24T14:22:17+08:00">
+                2020-10-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>[TOC]</p>
+<h1 id="线程与进程"><a href="#线程与进程" class="headerlink" title="线程与进程"></a>线程与进程</h1><h2 id="进程（Process）"><a href="#进程（Process）" class="headerlink" title="进程（Process）"></a>进程（Process）</h2><p>进程是一个具有一定独立功能的程序在一个数据集上的一次动态执行的过程，是操作系统进行资源分配和调度的一个独立单位，是应用程序运行的载体。</p>
+<p>进程是一种抽象的概念，从来没有统一的标准定义。<br>进程一般由程序、数据集合和进程控制块三部分组成：</p>
+<ul>
+<li>程序用于描述进程要完成的功能，是控制进程执行的指令集；</li>
+<li>数据集合是程序在执行时所需要的数据和工作区；</li>
+<li>程序控制块(Program Control Block，简称PCB)，包含进程的描述信息和控制信息，是进程存在的唯一标志。</li>
+</ul>
+<p>在某一时刻，一个 CPU 中只能运行一个进程，它是在各个进程之间来回切换的，每个进程执行的速度也不确定。</p>
+<h2 id="线程（Thread）"><a href="#线程（Thread）" class="headerlink" title="线程（Thread）"></a>线程（Thread）</h2><p>线程是程序执行中一个单一的顺序控制流程，是程序执行流的最小单元，是处理器调度和分派的基本单位。</p>
+<p>线程的运行状态：<br><img src="https://gw.aikan.miguvideo.com/ifs/img/b45a60769b3655c321ec921b36f99241_2.png" alt=""></p>
+<h2 id="进程与线程的区别与联系"><a href="#进程与线程的区别与联系" class="headerlink" title="进程与线程的区别与联系"></a>进程与线程的区别与联系</h2><ol>
+<li>线程是程序执行的最小单位，而进程是操作系统分配资源的最小单位；</li>
+<li>一个进程由一个或多个线程组成，线程是一个进程中代码的不同执行路线；</li>
+<li>进程之间相互独立，但同一进程下的各个线程之间共享程序的内存空间(包括代码段、数据集、堆等)及一些进程级的资源(如打开文件和信号)，某进程内的线程在其它进程不可见；</li>
+<li>调度和切换：线程上下文切换比进程上下文切换要快得多。</li>
+</ol>
+<p>线程与进程关系的示意图：</p>
+<p><img src="https://gw.aikan.miguvideo.com/ifs/img/12204f0ca1fb0b5f996991f02fb8b6c9_1.png" alt="111"></p>
+<p>扩展：<a href="https://juejin.cn/post/6844903756866256909" target="_blank" rel="noopener">关于 cpu 进程调度算法</a></p>
+<h2 id="JavaScript中的线程与进程"><a href="#JavaScript中的线程与进程" class="headerlink" title="JavaScript中的线程与进程"></a>JavaScript中的线程与进程</h2><p>众所周知，javascript是单线程的，这是由于在早期js作为脚本语言只是用来辅助优化用户交互的，并没有赋予多线程能力。</p>
+<p>针对现在的js的线程和进程处理能力，主要区分为浏览器环境和node环境</p>
+<h3 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h3><p>浏览器是多进程的，系统给每个进程分配了资源（CPU、内存等），每打开一个Tab页，就相当于创建了一个独立的浏览器进程。</p>
+<p>浏览器主要包含了下面这个进程：</p>
+<ul>
+<li><p>Browser进程：浏览器的主进程，有且只有一个，负责协调和主控，只要有以下作用</p>
+<ul>
+<li>负责浏览器界面显示，与用户交互，如前进、后退等</li>
+<li>负责各个页面的管理、创建和销毁其他进程</li>
+<li>将Renderer进程得到的内存中的Bitmap，绘制到用户界面上</li>
+<li>网络资源的管理、下载等</li>
+</ul>
+</li>
+<li><p>Renderer进程（浏览器渲染进程，浏览器内核，内部是多线程的）：默认每一个Tab页面都是一个进程，互不影响。主要作用是 页面渲染、脚本执行、事件处理等</p>
+</li>
+<li><p>GPU进程：最多只有一个，用户3D绘制等</p>
+</li>
+<li><p>第三方插件进程：每种类型的插件对应一个进程，仅当使用该插件时才创建</p>
+</li>
+</ul>
+<h4 id="浏览器多进程的优势"><a href="#浏览器多进程的优势" class="headerlink" title="浏览器多进程的优势"></a>浏览器多进程的优势</h4><p>相比较与单进程浏览器，多进程有如下优势：</p>
+<ul>
+<li>避免单个Page Crash影响到整个浏览器</li>
+<li>避免第三方插件Crash于影响到整个浏览器</li>
+<li>多进程充分利用多核优势</li>
+<li>方便使用沙盒模型隔离插件等进程，提高浏览器的稳定性</li>
+</ul>
+<h4 id="渲染进程"><a href="#渲染进程" class="headerlink" title="渲染进程"></a>渲染进程</h4><p>对于前端开发人员来说，接触到最多的可能就是浏览器的渲染进程，渲染进程内部是多线程的，主要包括以下几个线程：</p>
+<ol>
+<li>GUI渲染线程</li>
+</ol>
+<ul>
+<li>负责渲染浏览器界面，解析HTML、CSS、构建DOM树和RenderObject树，布局和绘制等</li>
+<li>当界面需要重绘（Repaint）或由于某种操作引发回流(Reflow)时，改建成就绘制执行</li>
+<li>注意：GUI渲染线程和JS引擎线程是互斥的，当JS引擎执行时GUI线程绘被挂起（相当于被冻结），GUI更新会被保存在一个队列中等JS引擎空闲时立即被执行</li>
+</ul>
+<ol start="2">
+<li>JS引擎线程</li>
+</ol>
+<ul>
+<li>JS引擎线程也被成为JS内核，负责处理JavaScript脚本程序，如V8引擎</li>
+<li>JS引擎线程负责解析JavaScript脚本，运行代码</li>
+<li>JS引擎一直等待着任务队列中任务的到来，然后加以处理，一个Tab页（Renderer进程）中无论什么时候只有一个JS线程在执行JS程序</li>
+<li>同样注意，GUI渲染线程与JS引擎线程是互斥的，所以如果JS执行的时间过长，这样就会造成页面的渲染不连贯，导致页面渲染加载阻塞。</li>
+</ul>
+<ol start="3">
+<li>事件触发线程</li>
+</ol>
+<ul>
+<li>归属于浏览器而不是JS引擎，用来控制事件循环</li>
+<li>当JS引擎执行代码块如setTimeout时（也可来自浏览器内核的其他线程，如鼠标点击、Ajax异步请求等），会将对应的任务添加到事件线程中</li>
+<li>当对应的事件符合触发条件时被触发时，事件触发线程会把事件添加到等待处理队列中，等待JS引擎的处理</li>
+<li>注意：由于JS的但线程关系，所以这些待处理队列中的事件都得排队等待JS引擎处理（当JS引擎空闲时才会去执行）</li>
+</ul>
+<ol start="4">
+<li>定时器触发线程</li>
+</ol>
+<ul>
+<li>setInterval与setTimeout所在的线程</li>
+<li>浏览器定时器并不是有JavaScript引擎计数的（因为JavaScript引擎是但线程的，如果处于阻塞线程状态就会影响计时的准确性）</li>
+<li>通过单线程来计时并触发定时器事件（计时完毕后，添加到事件对勒中，等待JS引擎空闲后执行）</li>
+<li>注意：W3C在HTML标准中规定，要求setTimeout中低于4ms的时间间隔算为4ms</li>
+</ul>
+<ol start="5">
+<li>异步Http请求线程</li>
+</ol>
+<ul>
+<li>XMLHttpRequest在连接后，是通过浏览器新开一个线程来请求数据</li>
+<li>当监测到状态变更时，如果设置有回调函数，异步线程就产生状态变更事件，将回调放置事件队列中，再由JavaScript引擎执行</li>
+</ul>
+<h4 id="从Event-Loop谈JS的运行机制"><a href="#从Event-Loop谈JS的运行机制" class="headerlink" title="从Event Loop谈JS的运行机制"></a>从Event Loop谈JS的运行机制</h4><p>到这里我们已经知道了JS引擎是单线程的，在浏览器Event Loop中会涉及到下面几个线程概念：</p>
+<ul>
+<li>JS引擎线程</li>
+<li>事件触发线程</li>
+<li>定时触发线程</li>
+</ul>
+<p>对于JS中的其他概念如下：</p>
+<ul>
+<li>JS分为同步任务和异步任务</li>
+<li>同步任务都在主线程上执行，形成一个执行栈</li>
+<li>主线程之外，事件触发线程管理者一个任务队列，只要异步任务有了执行结果，就在任务队列中放置一个事件</li>
+<li>一旦执行栈中的所有同步任务执行完毕（此时JS引擎空闲），系统就会读取任务队列，将可运行的异步任务添加到执行栈中，开始继续执行</li>
+</ul>
+<p><img src="https://gw.aikan.miguvideo.com/ifs/img/682ca4ec5157e7dac5f8dcecb2a7e0ec_4.png" alt=""></p>
+<h4 id="JS多线程的实现"><a href="#JS多线程的实现" class="headerlink" title="JS多线程的实现"></a>JS多线程的实现</h4><p>由于JS引擎是单线程的，当JS执行事件过长会阻塞页面渲染，那么真多CPU密集型的计算该如何处理呢？</p>
+<p>针对这样的问题，在HTML5中支持了 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Workers_API/Using_web_workers" target="_blank" rel="noopener">Web Worker</a></p>
+<p>在MDN的解释中，一个Worker是使用一个构造函数创建的一个对象(e.g.worker())运行一个命名的JavaScript文件，这个文件包含将在工作线程中运行的代码</p>
+<p>workers运行在一个全局上下文中，不同于当前的window环境，所以在worker线程中，是不能通过window获取当前全局范围的数据</p>
+<p>可以这么理解：</p>
+<ul>
+<li>创建Worker时，JS引擎项浏览器申请新开一个子线程（子线程是浏览器创建的，完全手祝线程控制，并且不能操作DOM）</li>
+<li>JS引擎线程与worker线程间通过特定的方式通信（postMessage API，需要通过序列化对象来与线程交互特定的数据）</li>
+</ul>
+<p>扩展：<a href="https://juejin.cn/post/6844903589924569101" target="_blank" rel="noopener">关于Web Worker(专有) 和 SharedWorker（共享）线程通信</a><br><a href="https://juejin.cn/post/6844903736238669837" target="_blank" rel="noopener">https://juejin.cn/post/6844903736238669837</a></p>
+<p>一个Nodejs服务的简单构成：一个进程 + 一个线程 + 一个事件循环 + 一个 JS 引擎 + 一个 Node.js 实例</p>
+<h3 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h3><p>Node.js 是 Javascript 在服务端的运行环境，构建在 chrome 的 V8 引擎之上，基于事件驱动、非阻塞I/O模型，充分利用操作系统提供的异步 I/O 进行多任务的执行，适合于 I/O 密集型的应用场景，因为异步，程序无需阻塞等待结果返回，而是基于回调通知的机制，原本同步模式等待的时间，则可以用来处理其它任务</p>
+<blockquote>
+<p>科普：在 Web 服务器方面，著名的 Nginx 也是采用此模式（事件驱动），避免了多线程的线程创建、线程上下文切换的开销，Nginx 采用 C 语言进行编写，主要用来做高性能的 Web 服务器，不适合做业务。</p>
+</blockquote>
+<h4 id="Node中的进程"><a href="#Node中的进程" class="headerlink" title="Node中的进程"></a>Node中的进程</h4><p>nodejs中的进程Process是一个全局对象，给我们提供了进程相关信息，针对Node中的多进程模型，则是利用Node <a href="http://nodejs.cn/api/cluster.html#cluster_cluster" target="_blank" rel="noopener">Cluster模块</a>和 <a href="http://nodejs.cn/api/child_process.html#child_process_child_process" target="_blank" rel="noopener">child_process模块</a>，具体可以查看eggjs官方文档：<a href="https://eggjs.org/zh-cn/core/cluster-and-ipc.html" target="_blank" rel="noopener">多进程模型和进程间通讯</a></p>
+<h5 id="Node中的多进程"><a href="#Node中的多进程" class="headerlink" title="Node中的多进程"></a>Node中的多进程</h5><p>利用<a href="http://nodejs.cn/api/cluster.html#cluster_cluster" target="_blank" rel="noopener">Cluster模块</a>和 <a href="http://nodejs.cn/api/child_process.html#child_process_child_process" target="_blank" rel="noopener">child_process模块</a>可以实现多进程</p>
+<ul>
+<li>守护进程</li>
+</ul>
+<p>后台运行的特殊进程，不受任何终端控制的进程。</p>
+<ul>
+<li>工作进程</li>
+</ul>
+<h5 id="Node中的多线程"><a href="#Node中的多线程" class="headerlink" title="Node中的多线程"></a>Node中的多线程</h5><p>利用<a href="http://nodejs.cn/api/worker_threads.html#worker_threads_worker_threads" target="_blank" rel="noopener">worker_threads（工作线程）模块</a>可以实现多线程</p>
+<p>worker_threads模块提供了同时运行多个线程的能力</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ul>
+<li>[1] <a href="https://eggjs.org/zh-cn/core/cluster-and-ipc.html" target="_blank" rel="noopener">Eggjs 多进程模型和进程间通讯</a></li>
+<li>[2] <a href="https://www.cnblogs.com/zhangguicheng/p/12092058.html" target="_blank" rel="noopener">深入理解 Node.js 进程与线程</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/09/27/Js%E9%98%9F%E5%88%97%E5%87%BD%E6%95%B0%E5%92%8C%E5%BC%82%E6%AD%A5%E6%89%A7%E8%A1%8C%E8%A7%A3%E6%9E%90/" rel="next" title="Js队列函数和异步执行解析">
+                <i class="fa fa-chevron-left"></i> Js队列函数和异步执行解析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">赵伟</p>
+              <p class="site-description motion-element" itemprop="description">前段杂货铺，正在储货中...</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#线程与进程"><span class="nav-number">1.</span> <span class="nav-text">线程与进程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程（Process）"><span class="nav-number">1.1.</span> <span class="nav-text">进程（Process）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程（Thread）"><span class="nav-number">1.2.</span> <span class="nav-text">线程（Thread）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程与线程的区别与联系"><span class="nav-number">1.3.</span> <span class="nav-text">进程与线程的区别与联系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript中的线程与进程"><span class="nav-number">1.4.</span> <span class="nav-text">JavaScript中的线程与进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器"><span class="nav-number">1.4.1.</span> <span class="nav-text">浏览器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#浏览器多进程的优势"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">浏览器多进程的优势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#渲染进程"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">渲染进程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#从Event-Loop谈JS的运行机制"><span class="nav-number">1.4.1.3.</span> <span class="nav-text">从Event Loop谈JS的运行机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JS多线程的实现"><span class="nav-number">1.4.1.4.</span> <span class="nav-text">JS多线程的实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Node"><span class="nav-number">1.4.2.</span> <span class="nav-text">Node</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Node中的进程"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">Node中的进程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Node中的多进程"><span class="nav-number">1.4.2.1.1.</span> <span class="nav-text">Node中的多进程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Node中的多线程"><span class="nav-number">1.4.2.1.2.</span> <span class="nav-text">Node中的多线程</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文章"><span class="nav-number">3.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">赵伟</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

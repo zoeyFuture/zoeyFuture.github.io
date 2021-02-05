@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Formily,表单," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="by zhaowei 2019&#x2F;12&#x2F;19  [TOC] 概述  Formily是面向中后台复杂业务场景的高性能表单解决方案，具有强大的JSON Schema数据驱动的动态表单渲染能力，解决动态渲染表单场景，支持各种复杂联动、复杂校验等业务逻辑。  解决方案Formily是Uform更名而来，所以多数基础案例可以查看Ufrom1.x版本的官网链接，里面有很多详细的使用案例。 https:&#x2F;&#x2F;uf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Formily入门和使用">
+<meta property="og:url" content="http://yoursite.com/2019/11/12/Formily%E5%85%A5%E9%97%A8%E5%92%8C%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="前端小谁谁">
+<meta property="og:description" content="by zhaowei 2019&#x2F;12&#x2F;19  [TOC] 概述  Formily是面向中后台复杂业务场景的高性能表单解决方案，具有强大的JSON Schema数据驱动的动态表单渲染能力，解决动态渲染表单场景，支持各种复杂联动、复杂校验等业务逻辑。  解决方案Formily是Uform更名而来，所以多数基础案例可以查看Ufrom1.x版本的官网链接，里面有很多详细的使用案例。 https:&#x2F;&#x2F;uf">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://gw.aikan.miguvideo.com/ifs/img/1d50129222262c7795d3f42b3baecf82_layout.jpg">
+<meta property="og:image" content="http://gw.aikan.miguvideo.com/ifs/img/91e02461dd6fb9fca29f668a981429f1_layout2.jpg">
+<meta property="og:image" content="http://gw.aikan.miguvideo.com/ifs/img/5d7822f15b3e6669a0445f706973f675_Table.jpg">
+<meta property="og:image" content="http://gw.aikan.miguvideo.com/ifs/img/596a3ff02218d8c9e8ebfd3e775ca3bc_step1.jpg">
+<meta property="og:image" content="http://gw.aikan.miguvideo.com/ifs/img/4f0e7b2419540e37039e0ff60088a9f8_Edit.jpg">
+<meta property="og:image" content="http://gw.aikan.miguvideo.com/ifs/img/0da8221ed80ab962365d4d0064872aa9_Text.jpg">
+<meta property="article:published_time" content="2019-11-12T02:39:35.000Z">
+<meta property="article:modified_time" content="2020-10-24T06:22:17.517Z">
+<meta property="article:author" content="赵伟">
+<meta property="article:tag" content="Formily">
+<meta property="article:tag" content="表单">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://gw.aikan.miguvideo.com/ifs/img/1d50129222262c7795d3f42b3baecf82_layout.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/11/12/Formily入门和使用/"/>
+
+
+
+
+
+  <title>Formily入门和使用 | 前端小谁谁</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">前端小谁谁</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">前端小猿，努力工作</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/12/Formily%E5%85%A5%E9%97%A8%E5%92%8C%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="赵伟">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端小谁谁">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Formily入门和使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-12T10:39:35+08:00">
+                2019-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Rxjs/" itemprop="url" rel="index">
+                    <span itemprop="name">Rxjs</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>by zhaowei 2019/12/19</p>
+</blockquote>
+<p>[TOC]</p>
+<h2 id="概述">概述</h2><blockquote>
+<p> Formily是面向中后台复杂业务场景的高性能表单解决方案，具有强大的JSON Schema数据驱动的动态表单渲染能力，解决动态渲染表单场景，支持各种复杂联动、复杂校验等业务逻辑。</p>
+</blockquote>
+<h2 id="解决方案">解决方案</h2><p>Formily是Uform更名而来，所以多数基础案例可以查看Ufrom1.x版本的官网链接，里面有很多详细的使用案例。</p>
+<p><a href="https://uformjs.org/#/MpI2Ij/dNFzFyTb" target="_blank" rel="noopener">https://uform-next.netlify.com (1.x)</a>，该版本中包含大量Formily使用案例，可以快速参考</p>
+<p><a href="https://formilyjs.org/#/bdCRC5/BlUJUaiw" target="_blank" rel="noopener">https://formilyjs.org/#/bdCRC5/BlUJUaiw</a>，新版本的地址，Formily的使用方法改变不大，新增加了更多的说明文档和扩展案例，对新增加的功能有更详细的说明。</p>
+<h3 id="表单定义">表单定义</h3><p>Formily具有强大的Schema解析能力，对于表单定义有Jsx描述、Json Schema描述方式，目前这两种方式不能混用</p>
+<p><strong>Jsx定义表单</strong></p>
+<p>Jsx描述是依赖Field组件用于定义表单项信息，当表单项比较多时，代码会比较多。</p>
+<p>Field形式如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;SchemaForm&gt;</span><br><span class="line">    &lt;Field type=<span class="string">"Object"</span> name=<span class="string">"aaa"</span>&gt;</span><br><span class="line">       &lt;Field type=<span class="string">"string"</span> name=<span class="string">"bbb"</span>/&gt;</span><br><span class="line">       &lt;Field type=<span class="string">"array"</span> name=<span class="string">"ccc"</span>&gt;</span><br><span class="line">          &lt;Field type=<span class="string">"object"</span>&gt;</span><br><span class="line">              &lt;Field type=<span class="string">"string"</span> name=<span class="string">"ddd"</span>/&gt;</span><br><span class="line">           &lt;<span class="regexp">/Field&gt; </span></span><br><span class="line"><span class="regexp">       &lt;/</span>Field&gt;</span><br><span class="line">    &lt;<span class="regexp">/Field&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>SchemaForm&gt;</span><br></pre></td></tr></table></figure><br>具体可以参考官方案例：<a href="https://uform-next.netlify.com/#/9NCgCJ/8RCMC5hMhY" target="_blank" rel="noopener">Formily 简单场景</a></p>
+<p><strong>Schema定义表单</strong></p>
+<p>Schema定义表单是通过标准Json Schema描述表单信息，并传递给 SchameForm组件绘制出表单内容，当表单项比较多时，可以考虑使用这种方式。</p>
+<p>Schema形式如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> schema = &#123;</span><br><span class="line">   <span class="string">"type"</span>:<span class="string">"object"</span>,</span><br><span class="line">    <span class="string">"properties"</span>:&#123;</span><br><span class="line">        <span class="string">"aaa"</span>:&#123;</span><br><span class="line">            <span class="string">"type"</span>:<span class="string">"object"</span>,</span><br><span class="line">            <span class="string">"properties"</span>:&#123;</span><br><span class="line">                <span class="string">"bbb"</span>:&#123;</span><br><span class="line">                    <span class="string">"type"</span>:<span class="string">"string"</span></span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="string">"ccc"</span>:&#123;</span><br><span class="line">                    <span class="string">"type"</span>:<span class="string">"array"</span>,</span><br><span class="line">                    <span class="string">"items"</span>:&#123;</span><br><span class="line">                        <span class="string">"type"</span>:<span class="string">"object"</span>,</span><br><span class="line">                        <span class="string">"properties"</span>:&#123;</span><br><span class="line">                            <span class="string">"ddd"</span>:&#123;</span><br><span class="line">                                <span class="string">"type"</span>:<span class="string">"string"</span></span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;SchemaForm schema=&#123;schema&#125; /&gt;</span><br></pre></td></tr></table></figure><br>具体可参考官方案例：<a href="https://uform-next.netlify.com/#/9NCgCJ/8RCMC5hMhY" target="_blank" rel="noopener">Formily 简单场景</a></p>
+<p><strong>使用场景</strong></p>
+<p>Jsx和Json Schema都可以定义表单信息，但是在使用时需要编写的代码量和后期可维护性也是需要考虑的，通常在定义表单时可以参考以下情形区分使用这两种方式：</p>
+<ul>
+<li>包含大量表单布局（FormGrid、FormBlock、FormCard、FormStep、FormTab等），考虑使用Jsx，主要因为在Json Schema 中描述布局信息结点没有Jsx描述清晰，说明性不强、修改不是很方便。</li>
+</ul>
+<p>例如当有如下布局时，则使用Field描述：</p>
+<p><img src="http://gw.aikan.miguvideo.com/ifs/img/1d50129222262c7795d3f42b3baecf82_layout.jpg" alt=""></p>
+<p>代码示例：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&lt;FormBlock title=<span class="string">"办理配置"</span> name=<span class="string">"handleConfig"</span>&gt;</span><br><span class="line">    &lt;Field</span><br><span class="line">        required=&#123;required&#125;</span><br><span class="line">        editable=&#123;editable&#125;</span><br><span class="line">        title=<span class="string">"目标客户"</span></span><br><span class="line">        name=<span class="string">"targetCustomer"</span></span><br><span class="line">        type=<span class="string">"string"</span></span><br><span class="line">        description=&#123;useCount &gt; <span class="number">0</span> &amp;&amp; <span class="string">`共计<span class="subst">$&#123;useCount&#125;</span>人`</span>&#125;</span><br><span class="line">        enum=&#123;targetCustomerOptions&#125;</span><br><span class="line">        x-props=&#123;&#123;</span><br><span class="line">          placeholder: <span class="string">'请输入'</span>,</span><br><span class="line">          mode: <span class="string">'multiple'</span>,</span><br><span class="line">          showSearch: <span class="literal">true</span>,</span><br><span class="line">          style: &#123;<span class="attr">width</span>: <span class="number">400</span>&#125;,</span><br><span class="line">          optionFilterProp: <span class="string">'label'</span>,</span><br><span class="line">          getPopupContainer: <span class="function"><span class="params">node</span> =&gt;</span> node.parentNode,</span><br><span class="line">        &#125;&#125;</span><br><span class="line">      /&gt;</span><br><span class="line">      &lt;Field</span><br><span class="line">        required=&#123;required&#125;</span><br><span class="line">        editable=&#123;editable&#125;</span><br><span class="line">        title=<span class="string">"用户办理方式"</span></span><br><span class="line">        name=<span class="string">"handleWay"</span></span><br><span class="line">        type=<span class="string">"radio"</span></span><br><span class="line">        enum=&#123;HANDLE_METHOD&#125;</span><br><span class="line">      /&gt;</span><br><span class="line">      &lt;Field</span><br><span class="line">        required=&#123;required&#125;</span><br><span class="line">        editable=&#123;editable&#125;</span><br><span class="line">        title=<span class="string">"小程序办理"</span></span><br><span class="line">        name=<span class="string">"apps"</span></span><br><span class="line">        type=<span class="string">"switch-field"</span></span><br><span class="line">        x-props=&#123;&#123;</span><br><span class="line">          message: <span class="string">'开启后可在小程序办理'</span>,</span><br><span class="line">        &#125;&#125;</span><br><span class="line">      /&gt;</span><br><span class="line">      &lt;Field</span><br><span class="line">        required=&#123;required&#125;</span><br><span class="line">        editable=&#123;editable&#125;</span><br><span class="line">        title=<span class="string">"关联渠道"</span></span><br><span class="line">        name=<span class="string">"channel"</span></span><br><span class="line">        type=<span class="string">"string"</span></span><br><span class="line">        enum=&#123;channelOptions&#125;</span><br><span class="line">        x-props=&#123;&#123;</span><br><span class="line">          style: &#123;<span class="attr">width</span>: <span class="number">600</span>&#125;,</span><br><span class="line">          placeholder: <span class="string">'请输入'</span>,</span><br><span class="line">          showSearch: <span class="literal">true</span>,</span><br><span class="line">          showArrow: <span class="literal">false</span>,</span><br><span class="line">          optionFilterProp: <span class="string">'label'</span>,</span><br><span class="line">          getPopupContainer: <span class="function"><span class="params">node</span> =&gt;</span> node.parentNode,</span><br><span class="line">        &#125;&#125;</span><br><span class="line">      /&gt;</span><br><span class="line">    &lt;<span class="regexp">/FormBlock&gt;</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>当表单项较多，且不含或包含较少布局信息，推荐使用Json Schema描述，简洁方便，代码量少。</li>
+</ul>
+<p>例如在弹出框中的普通表单项，就可以使用Schema描述：</p>
+<p><img src="http://gw.aikan.miguvideo.com/ifs/img/91e02461dd6fb9fca29f668a981429f1_layout2.jpg" alt=""></p>
+<p>代码示例：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    type: <span class="string">'object'</span>,</span><br><span class="line">    properties: &#123;</span><br><span class="line">      channelName: &#123;</span><br><span class="line">        required: <span class="literal">true</span>,</span><br><span class="line">        type: <span class="string">'string'</span>,</span><br><span class="line">        title: <span class="string">'渠道名称'</span>,</span><br><span class="line">        <span class="string">'x-props'</span>: &#123;</span><br><span class="line">          placeholder: <span class="string">'请输入'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">      channelNumber: &#123;</span><br><span class="line">        type: <span class="string">'string'</span>,</span><br><span class="line">        title: <span class="string">'渠道编号'</span>,</span><br><span class="line">        <span class="string">'x-props'</span>: &#123;</span><br><span class="line">          placeholder: <span class="string">'请输入'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">      operatorNumber: &#123;</span><br><span class="line">        required: <span class="literal">true</span>,</span><br><span class="line">        type: <span class="string">'string'</span>,</span><br><span class="line">        title: <span class="string">'操作员编号'</span>,</span><br><span class="line">        <span class="string">'x-props'</span>: &#123;</span><br><span class="line">          placeholder: <span class="string">'请输入'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">      regionCode: &#123;</span><br><span class="line">        required: <span class="literal">true</span>,</span><br><span class="line">        type: <span class="string">'city-cascader'</span>,</span><br><span class="line">        title: <span class="string">'地市'</span>,</span><br><span class="line">        <span class="string">'x-props'</span>: &#123;</span><br><span class="line">          placeholder: <span class="string">'请选择'</span>,</span><br><span class="line">          isShowProvince: <span class="literal">true</span>,</span><br><span class="line">          changeOnSelect: <span class="literal">true</span>,</span><br><span class="line">          onlyCity: <span class="literal">true</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">      channelLeaderName: &#123;</span><br><span class="line">        required: <span class="literal">true</span>,</span><br><span class="line">        type: <span class="string">'string'</span>,</span><br><span class="line">        title: <span class="string">'渠道负责人'</span>,</span><br><span class="line">        <span class="string">'x-props'</span>: &#123;</span><br><span class="line">          placeholder: <span class="string">'请输入'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">      channelLeaderMobile: &#123;</span><br><span class="line">        required: <span class="literal">true</span>,</span><br><span class="line">        type: <span class="string">'string'</span>,</span><br><span class="line">        title: <span class="string">'负责人手机号'</span>,</span><br><span class="line">        <span class="string">'x-props'</span>: &#123;</span><br><span class="line">          placeholder: <span class="string">'请输入'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">'x-rules'</span>: [</span><br><span class="line">          &#123; <span class="attr">validator</span>: validatorMobile &#125;, <span class="comment">// 这里是自定义的校验规则</span></span><br><span class="line">        ],</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>数据绑定</strong></p>
+<p>Formily表单数据会在form内部存储表单信息，当form不是受控组件时，开发完全不用关心数据如何存放，在使用时直接获取，不需要state来存储和维护表单状态，也不用在重渲染时的进行状态逻辑判断，避免了数据保存逻辑处理，也规避组件更新时的状态判断，使用非常方便。</p>
+<p>Formily中的数据输入有三种形式，分别是value、defauleValue、initialValues，三者的区别和使用场景可以查看官方给出的文档说明：<a href="https://formilyjs.org/#/0yTeT0/0eSpSBTYIX" target="_blank" rel="noopener">value/defauleValue/initialValues属性使用场景</a></p>
+<h3 id="表单联动">表单联动</h3><p>联动处理是Formily的一大核心亮点，其强大的表单联动是依赖于它的Effects副作用处理和路径系统，处理如一对多联动、多对一联动、多依赖联动、链式联动、循环联动、联动异步、数据转换、List列表联动等复杂场景都游刃有余，性能高效且使用方便。</p>
+<p>关于路径系统相关内容，可以查看介绍：<a href="https://zhuanlan.zhihu.com/p/100780657" target="_blank" rel="noopener">10分钟解读UForm路径系统</a></p>
+<p>关于联动处理介绍，可以查看官网介绍：<a href="https://formilyjs.org/#/0yTeT0/wWuyuJc6fO" target="_blank" rel="noopener">Formily 实现复杂联动逻辑</a></p>
+<p><strong>联动处理</strong></p>
+<p>部分场景中，在表单定义初始化时，或者在运行时对部分表单项需要执行动态隐藏/显示的问题，Formily提供了两个属性visible、display用于处理这列场景，这两者的区别如下：</p>
+<ul>
+<li>visible</li>
+</ul>
+<p>当visible为false时，表单项在UI上不显示，在表单实例中数据不再输出(实际数据还是存在，只是不再对外有任何表现)，在提交时，也拿不到该表单项的任何值；</p>
+<ul>
+<li>display</li>
+</ul>
+<p>当display为false时，表单项在UI上不显示，在表单实例中数据表现没有影响，在提交时，可以正常拿到该表单项的值；</p>
+<p>使用这两个属性处理表单联动，可以解决提交过程中的字段逻辑判断过程，更方便简洁；</p>
+<p>使用案例：<a href="https://codesandbox.io/s/visibledisplay-3wjcr" target="_blank" rel="noopener">visible/display的使用场景</a></p>
+<ul>
+<li>x-linkages</li>
+</ul>
+<p>Formily中新增加的x-linkages属性，支持配置简单的联动处理，有兴趣可以查看官网：<a href="https://formilyjs.org/#/0yTeT0/jYSxSwhmHa" target="_blank" rel="noopener">理解表单扩展机制</a></p>
+<ul>
+<li>其他联动</li>
+</ul>
+<p>Formily的联动功能非常强大，处理一对多联动、副作用校验、多依赖联、链式联动都很方便。具体请查看官网：<a href="https://formilyjs.org/#/0yTeT0/wWuyuJc6fO" target="_blank" rel="noopener">实现复杂联动逻辑</a></p>
+<p><strong>Effects副作用处理</strong></p>
+<p>Formily中的effects提供强大的副作用处理能力，修改数据、数据联动和异步请求等都可以完成，在SchemaFrom组件和Field组件都有对应的effects副作用处理逻辑</p>
+<ul>
+<li>SchemaFrom effects</li>
+</ul>
+<p>SchemaFrom中副作用处理是通过effects属性传递副作用处理函数，在内部监听表单事件，对各部分内容与表单数据进行处理（表单联动、数据项的改变等），目前实际项目中的副作用也是在SchemaFrom中进行处理的，具体可以参考官方案例：<a href="https://uform-next.netlify.com/#/9NCgCJ/4nuRuRS8Sj" target="_blank" rel="noopener">Uform 联动场景（V1.0）</a></p>
+<ul>
+<li>Field effects</li>
+</ul>
+<p>Field中的副作用处理是通过’x-effect’属性传递副作用处理函数，内部可以调用hook，或者通过dipatch发送action，并在SchemaFrom中进行处理，目前项目中用的比较少，具体可以查看官方案例：<a href="https://uform-next.netlify.com/#/9NCgCJ/4nuRuRS8Sj" target="_blank" rel="noopener">传动门</a></p>
+<p>此外，可以通过Uform Hook自定义逻辑处理，而不需要在全局Effects中做控制，具体可以查看案例：<a href="https://codesandbox.io/s/hooks-mzzdf" target="_blank" rel="noopener">传送门</a></p>
+<h3 id="表单布局">表单布局</h3><p>Formily中的布局方案比较多，利用FormLayout/FormItemGrid、FormCard/FormBlock、FormSlot、FormTextBox，FormSpy、FormStep以及FormTab等都可以实现如内联布局、复杂组合布局、网格布局、分步表单、选项卡表单等复杂的表单布局，当这些方案不满足业务需求是，也可以自定义表单布局。</p>
+<p>布局方案官方案例地址：<a href="https://formilyjs.org/#/0yTeT0/jbUzUluaIG" target="_blank" rel="noopener">Formily 实现复杂布局</a></p>
+<h3 id="特殊表单">特殊表单</h3><ul>
+<li>表单List（array，cards，table）</li>
+</ul>
+<p>解决中后台项目中大量字段的聚合输入场景需求，如数组场景、区块型数组等场景。针对这种场景处理是一个痛点，通常是使用state/setState或React Hook操作大量数据来实现，缺少数据状态统一管理的解决方案，繁琐而且不易维护。所以在Formily中给我们提供了三种数组表单组件array、cards、table，用于管理表单list。</p>
+<p>其解决方案可以查看下面几篇官方案例说明：<br><a href="https://uform-next.netlify.com/#/9NCgCJ/e3fef5h6hg" target="_blank" rel="noopener">表单List</a>、<br><a href="https://formilyjs.org/#/0yTeT0/w6idi5tdU1" target="_blank" rel="noopener">实现递归渲染组件</a>、<br><a href="https://formilyjs.org/#/0yTeT0/nvT5Tat8hO" target="_blank" rel="noopener">玩转自增列表组件</a>，当实际场景非常复杂是，也可以利用Formily提供的数据管理能力实现自定义组件，可以参考官方案例：<a href="https://formilyjs.org/#/0yTeT0/w6idi5tdU1" target="_blank" rel="noopener">实现递归渲染组件</a><br>、<a href="https://formilyjs.org/#/0yTeT0/A1T4TPhXUZ" target="_blank" rel="noopener">实现超复杂自定义组件</a></p>
+<p>项目中的应用如图：<br><img src="http://gw.aikan.miguvideo.com/ifs/img/5d7822f15b3e6669a0445f706973f675_Table.jpg" alt=""></p>
+<ul>
+<li>FormStep步骤条</li>
+</ul>
+<p>FormStep即是一个表单项，也是一个表单布局组件，是将Antd Steps 步骤条和 Form 表单结合起来的一个组件。官方地址：<a href="https://formilyjs.org/#/0yTeT0/jbUzUluaIG" target="_blank" rel="noopener">分步表单</a></p>
+<p>FormStep具有如下功能:</p>
+<p>&emsp;&emsp;1).分割表单，让每一步就像一个SchemaForm表单；</p>
+<p>&emsp;&emsp;2).状态保存，每一步的数据可以单独存储，返回时自动填充；</p>
+<p>&emsp;&emsp;3).支持Effect监听，获取表单状态信息；</p>
+<p>&emsp;&emsp;4).支持手动跳转（上一步、下一步、其他步骤）；</p>
+<p>&emsp;&emsp;5).支持时间旅行；</p>
+<p>&emsp;&emsp;6).提交时的数据是全部数据集合，不需要全局存储数据；</p>
+<p>项目中的应用如图：<br><img src="http://gw.aikan.miguvideo.com/ifs/img/596a3ff02218d8c9e8ebfd3e775ca3bc_step1.jpg" alt=""></p>
+<ul>
+<li>FormSpy</li>
+</ul>
+<p>FormSpy本质上是简版的Redux表单组件，用于监听组件各种事件（form、field），通过reducer对数据进行处理，并返回最终的值，也可以配合FormProvider在表单外部消费表单信息，如监听表单/表单内部字段的变化、多表单提交等。具体可以查看官方FormSpy案例说明： <a href="https://uform-next.netlify.com/#/MpI2Ij/0viAi3Fjtw" target="_blank" rel="noopener">FormSpy</a></p>
+<ul>
+<li>FormTab</li>
+</ul>
+<p>FormTab是Formily新增加的整合Antd Tab选项卡表单组件，目前项目中使用的不多，具体使用请查看官方文档：<a href="https://formilyjs.org/#/0yTeT0/jbUzUluaIG" target="_blank" rel="noopener">选项卡表单</a></p>
+<ul>
+<li>自定义表单项</li>
+</ul>
+<p>Formily中自定义需要进行表单注册，注册的表单项，只需要实现value/onChange接口即可；</p>
+<p>表单注册有两种形式，全局注册和实例注册，全局注册的表单项会在项目全局表单中生效，实例注册的表单项只对当前SchemaForm有效；具体可以查看最新官方说明：<a href="https://formilyjs.org/#/0yTeT0/jYSxSwhmHa" target="_blank" rel="noopener">理解表单扩展机制</a></p>
+<h3 id="表单校验">表单校验</h3><p>Formily的表单校验是基于完备的校验引擎，提供了如registerValidationFormats、registerValidationMTEngine等方法用于注册全局共享的校验逻辑和校验模板，具体可查看官方API文档：<a href="https://formilyjs.org/#/zoi8i0/6dt3t7FjI4" target="_blank" rel="noopener">数据校验</a></p>
+<ul>
+<li>数据校验<ul>
+<li>Json Schema校验</li>
+<li>validateFirst校验</li>
+<li>warning校验</li>
+<li>失焦校验</li>
+</ul>
+</li>
+<li>手工批量校验/手工清除校验消息</li>
+<li>校验规则扩展/正则规则扩展</li>
+<li>校验消息模板引擎</li>
+<li>无UI表单校验</li>
+</ul>
+<h3 id="表单提交">表单提交</h3><ul>
+<li>内部提交</li>
+</ul>
+<p>Formily内部提交数据，SchemFrom绑定提交方法onSubmit，内部通过Submit组件自动提交，具体可查看官方文档：<a href="https://uformjs.org/#/YZCyCk/7lC3CXsVhB" target="_blank" rel="noopener">表单提交</a></p>
+<ul>
+<li>外部提交</li>
+</ul>
+<p>Formily外部提交数据，可以通过Api createFromActions创建actions实例，在调用actions进行提交数据，也可以通过FormProvider和FormSpy（Uform之前是ForCustomer）进行提交，具体可以参考官网文档：<a href="https://formilyjs.org/#/zoi8i0/6dt3t7FjI4" target="_blank" rel="noopener">FormSpy</a></p>
+<ul>
+<li>多表单提交</li>
+</ul>
+<p>在某些情况下，页面中有多个Form表单实例一起提交数据，在Fromily中有两种解决方案：</p>
+<ul>
+<li><p>利用createFromActions创建多个actions实例，并绑定SchemaFrom表单，提交时调用actions.submit()提交多个表单数据</p>
+</li>
+<li><p>通过FormProvider和FormSpy，调用submit提交多表单数据（不过目前Formily提交有点问题，相信后续会解决），具体代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> onSubmit1 = <span class="function"><span class="params">params</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"onSubmit1:"</span>, params)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> onSubmit2 = <span class="function"><span class="params">params</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"onSubmit2:"</span>, params)</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;FormProvider&gt;</span><br><span class="line">      &lt;SchemaForm onSubmit=&#123;onSubmit1&#125;&gt;</span><br><span class="line">        &lt;Field name=<span class="string">"name"</span> title=<span class="string">"年龄"</span> /&gt;</span><br><span class="line">      &lt;<span class="regexp">/SchemaForm&gt;</span></span><br><span class="line"><span class="regexp">      &lt;SchemaForm onSubmit=&#123;onSubmit2&#125;&gt;</span></span><br><span class="line"><span class="regexp">        &lt;Field name="age" title="年龄" /</span>&gt;</span><br><span class="line">      &lt;<span class="regexp">/SchemaForm&gt;</span></span><br><span class="line"><span class="regexp">      &lt;FormSpy&gt;</span></span><br><span class="line"><span class="regexp">        &#123;(&#123; form: spyForm &#125;) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">          const handleSubmit = () =&gt; &#123;</span></span><br><span class="line"><span class="regexp">            if (spyForm) &#123;</span></span><br><span class="line"><span class="regexp">              spyForm.submit()</span></span><br><span class="line"><span class="regexp">            &#125;</span></span><br><span class="line"><span class="regexp">          &#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">          return (</span></span><br><span class="line"><span class="regexp">            &lt;Button onClick=&#123;handleSubmit&#125; type="primary"&gt;</span></span><br><span class="line"><span class="regexp">              保存</span></span><br><span class="line"><span class="regexp">            &lt;/</span>Button&gt;</span><br><span class="line">          )</span><br><span class="line">        &#125;&#125;</span><br><span class="line">      &lt;<span class="regexp">/FormSpy&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>FormProvider&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="表单复用（编辑/详情）">表单复用（编辑/详情）</h3><p>Formily在开发中提供了表单不同展示形态：编辑态和文本态，用于在不同状态下的信息展示，主要用于表单页和详情页，具体可查看官方案例：<a href="https://uform-next.netlify.com/#/9NCgCJ/8RCMC5hMhY" target="_blank" rel="noopener">状态变换</a></p>
+<p>由于Formily给我们提供了非常简单的表单定义形式，当注册自定义表单项时，可以根据props中的disabled字段，自定义实现编辑态和文本态的不同显示状态</p>
+<p>编辑态：<br><img src="http://gw.aikan.miguvideo.com/ifs/img/4f0e7b2419540e37039e0ff60088a9f8_Edit.jpg" alt=""></p>
+<p>文本态：<br><img src="http://gw.aikan.miguvideo.com/ifs/img/0da8221ed80ab962365d4d0064872aa9_Text.jpg" alt=""></p>
+<h3 id="支持Hook">支持Hook</h3><p>Formily是基于React16.8后的版本，已经全面使用hook来编写了，开发者可使用各种hook来使用Formily的特性。除了内置的生命周期，开发者还可以使用自定义Effects等一系列非常酷的特性 。(更多文档可参见<a href="https://formilyjs.org/#/zoi8i0/6dt3t7FjI4" target="_blank" rel="noopener">Formily Hook</a>），hooks是业务逻辑的抽象，用于简化视图的编写。</p>
+<h2 id="总结">总结</h2><p>Formily有强大的表单处理能力，利用Rxjs的响应式能力处理各种表单联动逻辑，可以非常方便的开发表单应用。Formily有很多实践教程，可以多多查看: <a href="https://formilyjs.org/#/0yTeT0/zlcDcOsbhP" target="_blank" rel="noopener">实践教程</a></p>
+<h2 id="参考文章">参考文章</h2><p><a href="https://zhuanlan.zhihu.com/uform" target="_blank" rel="noopener">UForm表单解决方案 - 知乎专栏</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/93859909" target="_blank" rel="noopener">UForm V1 要来了</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/94027681" target="_blank" rel="noopener">UForm技术内幕</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/100780657" target="_blank" rel="noopener">10分钟解读UForm路径系统</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/72007879" target="_blank" rel="noopener">UForm常见问题</a></p>
+<p><a href="https://formilyjs.org/#/0yTeT0/VEt5tQHbh2" target="_blank" rel="noopener">性能优化实践</a></p>
+<p><a href="https://formilyjs.org/#/0yTeT0/y9h0h4CLUe" target="_blank" rel="noopener">管理业务逻辑</a></p>
+<p><a href="https://formilyjs.org/#/0yTeT0/zlcDcOsbhP" target="_blank" rel="noopener">玩转查询列表</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Formily/" rel="tag"># Formily</a>
+          
+            <a href="/tags/%E8%A1%A8%E5%8D%95/" rel="tag"># 表单</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/12/Rxjs%E5%85%A5%E9%97%A8%E5%92%8C%E4%BD%BF%E7%94%A8/" rel="next" title="Rxjs学习入门">
+                <i class="fa fa-chevron-left"></i> Rxjs学习入门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/07/Js%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1/" rel="prev" title="封装日常工具函数和Hooks">
+                封装日常工具函数和Hooks <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">赵伟</p>
+              <p class="site-description motion-element" itemprop="description">前段杂货铺，正在储货中...</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方案"><span class="nav-number">2.</span> <span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#表单定义"><span class="nav-number">2.1.</span> <span class="nav-text">表单定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表单联动"><span class="nav-number">2.2.</span> <span class="nav-text">表单联动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表单布局"><span class="nav-number">2.3.</span> <span class="nav-text">表单布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特殊表单"><span class="nav-number">2.4.</span> <span class="nav-text">特殊表单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表单校验"><span class="nav-number">2.5.</span> <span class="nav-text">表单校验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表单提交"><span class="nav-number">2.6.</span> <span class="nav-text">表单提交</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表单复用（编辑/详情）"><span class="nav-number">2.7.</span> <span class="nav-text">表单复用（编辑&#x2F;详情）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#支持Hook"><span class="nav-number">2.8.</span> <span class="nav-text">支持Hook</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文章"><span class="nav-number">4.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">赵伟</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

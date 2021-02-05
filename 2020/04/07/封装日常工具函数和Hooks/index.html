@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="工具包,Hooks," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="封装日常工具函数和Hooks概述 封装日常使用的工具函数、React组件和Hooks，提高开发效率，避免踩坑  工具函数过滤参不合法对象属性 清理对象参数值，过滤不合法参数 123456789101112131415161718192021&#x2F;** * 清理对象参数值，过滤不合法参数 * @params &amp;#123;object&amp;#125; params - 待清理的对象 * @params &amp;#1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="封装日常工具函数和Hooks">
+<meta property="og:url" content="http://yoursite.com/2020/04/07/%E5%B0%81%E8%A3%85%E6%97%A5%E5%B8%B8%E5%B7%A5%E5%85%B7%E5%87%BD%E6%95%B0%E5%92%8CHooks/index.html">
+<meta property="og:site_name" content="前端小谁谁">
+<meta property="og:description" content="封装日常工具函数和Hooks概述 封装日常使用的工具函数、React组件和Hooks，提高开发效率，避免踩坑  工具函数过滤参不合法对象属性 清理对象参数值，过滤不合法参数 123456789101112131415161718192021&#x2F;** * 清理对象参数值，过滤不合法参数 * @params &amp;#123;object&amp;#125; params - 待清理的对象 * @params &amp;#1">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://global.uban360.com/sfs/file?digest=fid71f681723a774999d7f9d32642014b2d&amp;fileType=2">
+<meta property="article:published_time" content="2020-04-07T02:39:35.000Z">
+<meta property="article:modified_time" content="2020-09-27T11:58:43.190Z">
+<meta property="article:author" content="赵伟">
+<meta property="article:tag" content="工具包">
+<meta property="article:tag" content="Hooks">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://global.uban360.com/sfs/file?digest=fid71f681723a774999d7f9d32642014b2d&amp;fileType=2">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/04/07/封装日常工具函数和Hooks/"/>
+
+
+
+
+
+  <title>封装日常工具函数和Hooks | 前端小谁谁</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">前端小谁谁</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">前端小猿，努力工作</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/07/%E5%B0%81%E8%A3%85%E6%97%A5%E5%B8%B8%E5%B7%A5%E5%85%B7%E5%87%BD%E6%95%B0%E5%92%8CHooks/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="赵伟">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="前端小谁谁">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">封装日常工具函数和Hooks</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-04-07T10:39:35+08:00">
+                2020-04-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hooks/" itemprop="url" rel="index">
+                    <span itemprop="name">Hooks</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="封装日常工具函数和Hooks">封装日常工具函数和Hooks</h2><h3 id="概述">概述</h3><blockquote>
+<p>封装日常使用的工具函数、React组件和Hooks，提高开发效率，避免踩坑</p>
+</blockquote>
+<h4 id="工具函数">工具函数</h4><p><strong>过滤参不合法对象属性</strong></p>
+<p>清理对象参数值，过滤不合法参数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 清理对象参数值，过滤不合法参数</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@params <span class="type">&#123;object&#125;</span> <span class="variable">params</span></span> - 待清理的对象</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@params <span class="type">&#123;array&#125;</span> <span class="variable">filters</span></span> - 清理的值信息，默认当值为[null, undefined, NaN, '']中的任意值时，该字段被清理掉</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns <span class="type">&#123;object&#125;</span> </span>清理之后的对象</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">clearObject</span>(<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  params,</span></span></span><br><span class="line"><span class="function"><span class="params">  filters = [null, undefined, NaN, <span class="string">''</span>]</span></span></span><br><span class="line"><span class="function"><span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (params <span class="keyword">instanceof</span> <span class="built_in">Object</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> newParams = &#123;&#125;</span><br><span class="line">    <span class="built_in">Object</span>.keys(params).forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (!filters.includes(params[key])) &#123;</span><br><span class="line">        newParams[key] = params[key]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> newParams</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> params</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>时间格式化</strong></p>
+<p>格式化时间戳，支持格式化时间区间</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 时间格式化</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@params <span class="type">&#123;number&#125;</span> <span class="variable">start</span></span> - 开始时间戳，毫秒级</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@params <span class="type">&#123;number&#125;</span> <span class="variable">end</span></span> - 结束时间戳，毫秒级</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@params <span class="type">&#123;object&#125;</span> <span class="variable">config</span></span> - 格式化配置项</span></span><br><span class="line"><span class="comment"> *  <span class="doctag">@param <span class="type">&#123;string&#125;</span> <span class="variable">format</span></span> - 转换格式，默认格式是YYYY-MM-DD HH:mm</span></span><br><span class="line"><span class="comment"> *  <span class="doctag">@param <span class="type">&#123;string&#125;</span> <span class="variable">separator</span></span> - 分割字符串，默认是'-'</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns <span class="type">&#123;string&#125;</span></span></span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@example</span></span></span><br><span class="line"><span class="comment"> * fixDateRequestParams(1554790648037) ==&gt; 2019-04-09 00:00</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@example</span></span></span><br><span class="line"><span class="comment"> * fixDateRequestParams(1554790648037, 1554790648037) ==&gt; 2019-04-09 00:00 - 2019-04-09 00:00</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@example</span></span></span><br><span class="line"><span class="comment"> * fixDateRequestParams(1554790648037, 1554790648037, format = 'YYYY-MM-DD') ==&gt; 2019-04 - 09-2019-04-09</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@example</span></span></span><br><span class="line"><span class="comment"> * fixDateRequestParams(1554790648037, 1554790648037,  format = 'YYYY-MM-DD', separator = '/' )  ==&gt; 2019-0409/2019-04-09</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">formatDate</span> (<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  start,</span></span></span><br><span class="line"><span class="function"><span class="params">  end,</span></span></span><br><span class="line"><span class="function"><span class="params">  format = <span class="string">'YYYY-MM-DD HH:mm'</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">  separator  = <span class="string">'-'</span></span></span></span><br><span class="line"><span class="function"><span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> ((start &amp;&amp; !<span class="built_in">isNaN</span>(start)) &amp;&amp; (end &amp;&amp; !<span class="built_in">isNaN</span>(end))) &#123;</span><br><span class="line">    <span class="keyword">const</span> startTime = moment(start).format(format)</span><br><span class="line">    <span class="keyword">const</span> endTime = moment(end).format(format)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;startTime&#125;</span> <span class="subst">$&#123;separator&#125;</span> <span class="subst">$&#123;endTime&#125;</span>`</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (start &amp;&amp; !<span class="built_in">isNaN</span>(start)) &#123;</span><br><span class="line">    <span class="keyword">return</span> moment(start).format(format)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (end &amp;&amp; !<span class="built_in">isNaN</span>(end)) &#123;</span><br><span class="line">    <span class="keyword">return</span> moment(end).format(format)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="string">''</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>时间区间格式化</strong></p>
+<p>格式化时间为开始时间：00:00:00 - 结束时间: 23:59:59</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> moment <span class="keyword">from</span> <span class="string">'moment'</span>;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 时间区间格式化</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">date</span></span> - 时间戳（毫秒级）</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns <span class="type">&#123;object&#125;</span></span></span></span><br><span class="line"><span class="comment"> *  start 日起开始时间: YYYY-MM-DD 00:00:00</span></span><br><span class="line"><span class="comment"> *  end 日起结束时间: YYYY-MM-DD 23:59:59</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@example</span></span></span><br><span class="line"><span class="comment"> * formatDateSpace(1554790648037) </span></span><br><span class="line"><span class="comment"> * ==&gt; </span></span><br><span class="line"><span class="comment"> * &#123;</span></span><br><span class="line"><span class="comment"> *  start: '2019-04-09 00:00:00',</span></span><br><span class="line"><span class="comment"> *  start: '2019-04-09 23:59:59' </span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">formatDateSpace</span>(<span class="params">date</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (date &amp;&amp; !<span class="built_in">isNaN</span>(date)) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      start: <span class="string">`<span class="subst">$&#123;moment(date).format(<span class="string">'YYYY-MM-DD'</span>)&#125;</span> 00:00:00`</span>,</span><br><span class="line">      end: <span class="string">`<span class="subst">$&#123;moment(date).format(<span class="string">'YYYY-MM-DD'</span>)&#125;</span> 23:59:59`</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>匹配枚举字段值</strong></p>
+<p>匹配枚举字段值，针对Table列表格式化显示的辅助工具函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 匹配枚举字段值</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">key</span></span> -  某状态/类型对应的type值</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;array&#125;</span> <span class="variable">source</span></span>  -  所有状态/类型</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;string&#125;</span> <span class="variable">keyName</span></span> -  匹配key字段名，默认是'label'</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;string&#125;</span> <span class="variable">valueName</span></span>  -  匹配value字段名，默认是'value'</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;string&#125;</span>  </span>-  该key值对应的状态/类型，匹配失败'-'</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@example</span></span></span><br><span class="line"><span class="comment"> * const source = [</span></span><br><span class="line"><span class="comment"> *  &#123;</span></span><br><span class="line"><span class="comment"> *    label: 1</span></span><br><span class="line"><span class="comment"> *    value:'例子1'</span></span><br><span class="line"><span class="comment"> *  &#125;,&#123;</span></span><br><span class="line"><span class="comment"> *    label: 2</span></span><br><span class="line"><span class="comment"> *    value:'例子2'</span></span><br><span class="line"><span class="comment"> *  &#125;,</span></span><br><span class="line"><span class="comment"> * ]</span></span><br><span class="line"><span class="comment"> * matchRelevantValue(1, source) === '例子1'</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">formatMatchValue</span>(<span class="params">key, source = [], keyName = <span class="string">'label'</span>, valueName = <span class="string">'value'</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> item = source.find(<span class="function"><span class="params">item</span> =&gt;</span> item[<span class="string">`<span class="subst">$&#123;keyName&#125;</span>`</span>] === key)</span><br><span class="line">  <span class="keyword">if</span> (item) &#123;</span><br><span class="line">    <span class="keyword">return</span> item[<span class="string">`<span class="subst">$&#123;valueName&#125;</span>`</span>] || <span class="string">'-'</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'-'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>数字格式化为千分位</strong></p>
+<p>数字格式化为千分位，主要格式化金额</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 数字格式化为千分位</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">targetNumber</span></span> -  数值</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">fractionDigits</span></span> -  保留小数位数</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns <span class="type">&#123;*&#125;</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@example</span></span></span><br><span class="line"><span class="comment"> * formatThousandsSeparator(1000) === 1,000</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@example</span></span></span><br><span class="line"><span class="comment"> * formatThousandsSeparator(1000,2) === 1,000.00</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">formatThousandsSeparator</span>(<span class="params">targetNumber, fractionDigits</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!targetNumber &amp;&amp; targetNumber !== <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">''</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (targetNumber === <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> minus = <span class="literal">false</span>;</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">       * 兼容负数</span></span><br><span class="line"><span class="comment">       */</span></span><br><span class="line">  <span class="keyword">if</span> (targetNumber &lt; <span class="number">0</span>) &#123;</span><br><span class="line">    minus = <span class="literal">true</span>;</span><br><span class="line">    targetNumber = <span class="built_in">Math</span>.abs(targetNumber);</span><br><span class="line">  &#125;</span><br><span class="line">  fractionDigits = fractionDigits &gt;= <span class="number">0</span> &amp;&amp; fractionDigits &lt;= <span class="number">20</span> ? fractionDigits : <span class="number">2</span>;</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * replace(/[^\d\.-]/g, '')</span></span><br><span class="line"><span class="comment">     * 匹配 除数字、逗号（,）、短横线（ - 负数符号）之外的字符串,替换成''</span></span><br><span class="line"><span class="comment">     * eq: 'a123'.replace(/[^\d\.-]/g, '') === 123</span></span><br><span class="line"><span class="comment">     * eq: 'a123bc'.replace(/[^\d\.-]/g, '0') === 012300</span></span><br><span class="line"><span class="comment">     * eq: 'a123-'.replace(/[^\d\.-]/g, '0') === 0123-</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">  targetNumber = <span class="string">`<span class="subst">$&#123;<span class="built_in">parseFloat</span>((<span class="string">`<span class="subst">$&#123;targetNumber&#125;</span>`</span>).replace(<span class="regexp">/[^\d\.-]/g</span>, <span class="string">''</span>)).toFixed(fractionDigits)&#125;</span>`</span>;</span><br><span class="line">  <span class="keyword">const</span> reversedSplitNumber = targetNumber.split(<span class="string">'.'</span>)[<span class="number">0</span>].split(<span class="string">''</span>).reverse();</span><br><span class="line">  <span class="comment">// 小数位</span></span><br><span class="line">  <span class="keyword">const</span> decimalPlace = targetNumber.split(<span class="string">'.'</span>)[<span class="number">1</span>];</span><br><span class="line">  <span class="keyword">let</span> reversedString = <span class="string">''</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; reversedSplitNumber.length; i += <span class="number">1</span>) &#123;</span><br><span class="line">    reversedString += reversedSplitNumber[i] + ((i + <span class="number">1</span>) % <span class="number">3</span> === <span class="number">0</span> &amp;&amp; (i + <span class="number">1</span>) !== reversedSplitNumber.length ? <span class="string">','</span> : <span class="string">''</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">       * 兼容负数和整数</span></span><br><span class="line"><span class="comment">       */</span></span><br><span class="line">  <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;minus ? <span class="string">'-'</span> : <span class="string">''</span>&#125;</span><span class="subst">$&#123;reversedString.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>)&#125;</span><span class="subst">$&#123;decimalPlace ? <span class="string">`.<span class="subst">$&#123;decimalPlace&#125;</span>`</span> : <span class="string">''</span>&#125;</span>`</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>金额格式化转换</strong></p>
+<p>金额格式化转换，针对分转元，元转分的，这里使用了 number-precision 工具包，用于金额的精准计算，避免在小数值计算时产生误差（避免踩坑）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install number-precision --save</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> NP <span class="keyword">from</span> <span class="string">'number-precision'</span></span><br><span class="line"><span class="keyword">import</span> formatThousandsSeparator <span class="keyword">from</span> <span class="string">'./formatThousandsSeparator'</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 金额格式化转换</span></span><br><span class="line"><span class="comment"> *  元转分</span></span><br><span class="line"><span class="comment"> *  分转元（默认千分位格式化，并保留2位小数）</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">money</span></span> - 金额(元/分)</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;string&#125;</span> <span class="variable">mode</span></span> - 模式：'toYuan'（分-&gt;元）'toCent'（元-&gt;分），默认是 'toYuan'</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@params <span class="type">&#123;object&#125;</span> </span>config 转换配置项</span></span><br><span class="line"><span class="comment"> *    <span class="doctag">@param <span class="type">&#123;boolean&#125;</span> <span class="variable">thousandsSeparator</span></span> -  是否需要格式化成千分位,默认为true</span></span><br><span class="line"><span class="comment"> *    <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">fractionDigits</span></span>  - 保留小数位数,默认为2</span></span><br><span class="line"><span class="comment"> *    <span class="doctag">@param <span class="type">&#123;string&#125;</span> <span class="variable">illegalCharacter</span></span>  - 非法数据是展示的字符</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns <span class="type">&#123;*&#125;</span> </span>转换之后的金额</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@example</span></span></span><br><span class="line"><span class="comment"> * formatCentToYuan(100000) === 1,000.00</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">formatMoney</span>(<span class="params">money, mode = <span class="string">'toYuan'</span>, config = &#123;&#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; thousandsSeparator = <span class="literal">true</span>, fractionDigits = <span class="number">2</span>, illegalCharacter = <span class="string">'-'</span>&#125; = config</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!money || <span class="built_in">isNaN</span>(money)) &#123;</span><br><span class="line">    <span class="keyword">return</span> illegalCharacter</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">switch</span> (mode) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'toYuan'</span>: &#123;</span><br><span class="line">      <span class="keyword">const</span> yuan = NP.round(NP.divide(money, <span class="number">100</span>), fractionDigits)</span><br><span class="line">      <span class="keyword">if</span> (!thousandsSeparator) &#123;</span><br><span class="line">        <span class="keyword">return</span> yuan</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> formatThousandsSeparator(yuan, fractionDigits)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'toCent'</span>: &#123;</span><br><span class="line">      <span class="keyword">return</span> NP.round(NP.times(money, <span class="number">100</span>), <span class="number">0</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">return</span> illegalCharacter</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>工具包地址：<a href="https://github.com/zhaowei-plus/utils-tools" target="_blank" rel="noopener">https://github.com/zhaowei-plus/utils-tools</a></p>
+<h4 id="组件">组件</h4><p><strong>列表搜索组件</strong></p>
+<p>List表头搜索组件，一般是和Antd Table配合使用，这里使用了Formily表单库，在使用前需要安装依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install --save @formily&#x2F;antd</span><br><span class="line">npm install --save @formily&#x2F;antd-components &#x2F;*扩展库*&#x2F;</span><br></pre></td></tr></table></figure>
+<p>Formily官网地址：<a href="https://formilyjs.org/#/bdCRC5/dzUZU8il" target="_blank" rel="noopener">https://formilyjs.org/#/bdCRC5/dzUZU8il</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">import React from &#39;react&#39;</span><br><span class="line">import &#123;</span><br><span class="line">  SchemaForm,</span><br><span class="line">  FormButtonGroup,</span><br><span class="line">  Submit,</span><br><span class="line">  Reset</span><br><span class="line">&#125; from &#39;@formily&#x2F;antd&#39;</span><br><span class="line"></span><br><span class="line">import &#123;</span><br><span class="line">  formatPlaceholder,</span><br><span class="line">  clearObject</span><br><span class="line">&#125; from &#39;..&#x2F;Utils&#39;</span><br><span class="line"></span><br><span class="line">import &#39;.&#x2F;index.less&#39;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * 格式化schema中的placeholder提示信息</span><br><span class="line"> *&#x2F;</span><br><span class="line">export const formatPlaceholder &#x3D; (schema) &#x3D;&gt; &#123;</span><br><span class="line">  Object.keys(schema).forEach(key &#x3D;&gt; &#123;</span><br><span class="line">    if (schema[key].type &#x3D;&#x3D;&#x3D; &#39;string&#39;) &#123;</span><br><span class="line">      const item &#x3D; schema[key]</span><br><span class="line">      if (!Reflect.has(item, &#39;x-props&#39;)) &#123;</span><br><span class="line">        item[&#39;x-props&#39;] &#x3D; &#123;&#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      if (Array.isArray(item.enum)) &#123;</span><br><span class="line">        item[&#39;x-props&#39;].placeholder &#x3D; &#39;请选择&#39;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        item[&#39;x-props&#39;].placeholder &#x3D; &#39;请输入&#39;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  return schema</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default (props) &#x3D;&gt; &#123;</span><br><span class="line">  const &#123;schema, onSearch, ...rest&#125; &#x3D; props</span><br><span class="line"></span><br><span class="line">  const onSubmit &#x3D; (params) &#x3D;&gt; &#123;</span><br><span class="line">    &#x2F;&#x2F; clearObject 过滤空值的属性</span><br><span class="line">    onSearch(clearObject(params))</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return (</span><br><span class="line">    &lt;SchemaForm</span><br><span class="line">      schema&#x3D;&#123;&#123;</span><br><span class="line">        type: &#39;object&#39;,</span><br><span class="line">        properties: formatPlaceholder(schema)</span><br><span class="line">      &#125;&#125;</span><br><span class="line">      onSubmit&#x3D;&#123;onSubmit&#125;</span><br><span class="line">      onReset&#x3D;&#123;onSubmit&#125;</span><br><span class="line">      className&#x3D;&quot;search&quot;</span><br><span class="line">      &#123;...rest&#125;</span><br><span class="line">    &gt;</span><br><span class="line">      &lt;FormButtonGroup className&#x3D;&quot;search__actions&quot;&gt;</span><br><span class="line">        &lt;Submit&gt;查询&lt;&#x2F;Submit&gt;</span><br><span class="line">        &lt;Reset&gt;重置&lt;&#x2F;Reset&gt;</span><br><span class="line">      &lt;&#x2F;FormButtonGroup&gt;</span><br><span class="line">    &lt;&#x2F;SchemaForm&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>css 样式如下：<br><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.search</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">flex-wrap</span>: wrap;</span><br><span class="line">  <span class="attribute">justify-content</span>: flex-start;</span><br><span class="line"></span><br><span class="line">  <span class="selector-class">.ant-form-item</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: grid;</span><br><span class="line">    grid-template-<span class="attribute">columns</span>: minmax(<span class="number">80px</span>, max-content) auto;</span><br><span class="line">    <span class="attribute">margin-bottom</span>: <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    &amp;<span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">      <span class="attribute">display</span>: none;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="selector-class">.ant-form-item-label</span> &#123;</span><br><span class="line">      <span class="attribute">height</span>: <span class="number">40px</span>;</span><br><span class="line">      <span class="attribute">line-height</span>: <span class="number">40px</span>;</span><br><span class="line">      <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">10px</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="selector-class">.ant-form-item-control-wrapper</span> &#123;</span><br><span class="line">      <span class="attribute">height</span>: <span class="number">40px</span>;</span><br><span class="line">      <span class="attribute">line-height</span>: <span class="number">40px</span>;</span><br><span class="line"></span><br><span class="line">      <span class="selector-class">.ant-calendar-picker</span>,</span><br><span class="line">      <span class="selector-class">.ant-select</span> &#123;</span><br><span class="line">        <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">        <span class="attribute">min-width</span>: <span class="number">200px</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  &amp;__actions &#123;</span><br><span class="line">    <span class="attribute">flex</span>: <span class="number">1</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">40px</span>;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">justify-content</span>: flex-end;</span><br><span class="line"></span><br><span class="line">    <span class="selector-class">.button-group</span> &#123;</span><br><span class="line">      <span class="attribute">height</span>: <span class="number">40px</span>;</span><br><span class="line">      <span class="attribute">line-height</span>: <span class="number">40px</span>;</span><br><span class="line">      <span class="attribute">width</span>: <span class="number">140px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>注意Search组件中的schema是Formily的标准schema（<a href="https://formilyjs.org/#/0yTeT0/jAU8UVSYI8" target="_blank" rel="noopener">Formily Form Schema文档地址</a>）去掉了外部的 properties 配置：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"type"</span>: <span class="string">"object"</span>,</span><br><span class="line">    <span class="string">"properties"</span>: &#123;</span><br><span class="line">        ...schema <span class="comment">// 导入的schema配置</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>案例：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">() =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> schema = &#123;</span><br><span class="line">        orgName: &#123;</span><br><span class="line">          type: <span class="string">'string'</span>,</span><br><span class="line">          title: <span class="string">'企业名称/编码'</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">const</span> onSearch = <span class="function">(<span class="params">params</span>) =&gt;</span> &#123;</span><br><span class="line">       <span class="comment">// 根据条件搜索数据</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;Search</span><br><span class="line">            schema=&#123;schema&#125;</span><br><span class="line">            onSearch=&#123;onSearch&#125;</span><br><span class="line">        /&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>显示结果：</p>
+<p><img src="https://global.uban360.com/sfs/file?digest=fid71f681723a774999d7f9d32642014b2d&amp;fileType=2" alt=""></p>
+<h4 id="Hooks">Hooks</h4><p><strong>useList</strong></p>
+<p>useList hook是组装了表头搜索组件和Table结果数据的hook，通过url和默认参数搜索结果，获取Table数据并显示，具体代码如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useState &#125; <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * useList hook，用于Table、有搜索栏的Table数据搜索</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;string&#125;</span> </span>url 请求地址</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;object&#125;</span> </span>initialParams 初始化参数，初始化时需要有搜索参数，并且在后续搜索中可以被修改的参数</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;object&#125;</span> </span>staticParams 静态参数，每次搜索都固定不变的参数</span></span><br><span class="line"><span class="comment"> * */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (url, initialParams = &#123;&#125;, staticParams = &#123;&#125;) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> [params, setParams] = useState(initialParams)</span><br><span class="line">  <span class="keyword">const</span> [dataSource, setDataSource] = useState([])</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> [pagination, setPagination] = useState(&#123;</span><br><span class="line">    current: <span class="number">1</span>,</span><br><span class="line">    pageSize: <span class="number">10</span>,</span><br><span class="line">    total: <span class="number">0</span>,</span><br><span class="line">    showQuickJumper: <span class="literal">true</span>,</span><br><span class="line">    showTotal: <span class="function"><span class="params">total</span> =&gt;</span> <span class="string">`共<span class="subst">$&#123;total&#125;</span>条`</span></span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">   * 查询列表信息：</span></span><br><span class="line"><span class="comment">   *  1 刷新时，分页器不变，搜索参数不变</span></span><br><span class="line"><span class="comment">   *  2 查询时，分页器清零，搜索参数改变</span></span><br><span class="line"><span class="comment">   * */</span></span><br><span class="line">  <span class="keyword">const</span> onFetch = <span class="function">(<span class="params">_pagination = pagination, _params = params</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; <span class="attr">current</span>: currentPage, pageSize &#125; = _pagination</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> data = &#123;</span><br><span class="line">      pageIndex: currentPage,</span><br><span class="line">      pageNo: currentPage,</span><br><span class="line">      pageSize,</span><br><span class="line">      ..._params,</span><br><span class="line">      ...staticParams</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 向后端发送请求列表数据的方法根据项目实际自定义实现，主要</span></span><br><span class="line"><span class="comment">     * 是针对不同项目请求方式的不同做兼容处理</span></span><br><span class="line"><span class="comment">     </span></span><br><span class="line"><span class="comment">     * 注意：这里的请求没有写死，主要是因为很多项目中的请求方式不一样，使用时可以拷贝自行替换</span></span><br><span class="line"><span class="comment">     * */</span></span><br><span class="line">    http.get(url, &#123;</span><br><span class="line">      pageIndex: currentPage,</span><br><span class="line">      pageNo: currentPage,</span><br><span class="line">      pageSize,</span><br><span class="line">      ..._params,</span><br><span class="line">      ...staticParams</span><br><span class="line">    &#125;).then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> &#123; rows = [], total &#125; = res.data || &#123;&#125;</span><br><span class="line">      setDataSource(rows)</span><br><span class="line">      setParams(_params)</span><br><span class="line">      setPagination(&#123;</span><br><span class="line">        ..._pagination,</span><br><span class="line">        total,</span><br><span class="line">        current: currentPage</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 参数查询列表信息</span></span><br><span class="line"><span class="comment">   * */</span></span><br><span class="line">  <span class="keyword">const</span> onSearch = <span class="function">(<span class="params">_params</span>) =&gt;</span> &#123;</span><br><span class="line">    onFetch(&#123; ...pagination,  <span class="attr">current</span>: <span class="number">1</span>&#125;, _params)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 分页查询列表信息</span></span><br><span class="line"><span class="comment">   * */</span></span><br><span class="line">  <span class="keyword">const</span> onChange = <span class="function">(<span class="params">_pagination</span>) =&gt;</span> &#123;</span><br><span class="line">    onFetch(_pagination)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    params,</span><br><span class="line">    onSearch,</span><br><span class="line">    onFetch,</span><br><span class="line">    <span class="comment">// table所需要的值</span></span><br><span class="line">    table: &#123;</span><br><span class="line">      pagination,</span><br><span class="line">      dataSource,</span><br><span class="line">      onChange,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>案例：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">() =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> list = useList(<span class="string">'serviceOrder/list'</span>)</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">const</span> onSearch = <span class="function">(<span class="params">params</span>) =&gt;</span> &#123;</span><br><span class="line">      list.onSearch(params)</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      list.onFetch() <span class="comment">// 搜索数据</span></span><br><span class="line">  &#125;, [])</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 有时候需要列表搜索的参数，可以取值 list.params</span></span><br><span class="line">  </span><br><span class="line">  <span class="keyword">const</span> columns = [<span class="comment">/** Table列表项 **/</span>]</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">      &lt;Table</span><br><span class="line">        columns=&#123;columns&#125;</span><br><span class="line">        &#123;...list.table&#125;</span><br><span class="line">      /&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>useTable</strong></p>
+<p>useTable 是基于useList 的简单封装，返回Table数据和XmTable组件，不需要导入Antd的Table，代码如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> &#123; Table&#125; <span class="keyword">from</span> <span class="string">'antd'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> useList <span class="keyword">from</span> <span class="string">'./use-list'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (url, initialParams = &#123;&#125;, staticParams = &#123;&#125;) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> list = useList(url, initialParams, staticParams)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> XmTable = <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; rowKey = <span class="string">'id'</span>, columns = [], ...rest &#125; = props</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span>  (</span><br><span class="line">      &lt;Table</span><br><span class="line">        rowKey=&#123;rowKey&#125;</span><br><span class="line">        columns=&#123;columns&#125;</span><br><span class="line">        &#123;...list.table&#125;</span><br><span class="line">        &#123;...rest&#125;</span><br><span class="line">      /&gt;</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    table: list,</span><br><span class="line">    XmTable</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>案例：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">() =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; table, XmTable &#125; = useTable(<span class="string">'serviceOrder/list'</span>)</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">const</span> onSearch = <span class="function">(<span class="params">params</span>) =&gt;</span> &#123;</span><br><span class="line">      table.onSearch(params)</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      table.onFetch() <span class="comment">// 搜索数据</span></span><br><span class="line">  &#125;, [])</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 有时候需要列表搜索的参数，可以取值 table.params</span></span><br><span class="line">  </span><br><span class="line">  <span class="keyword">const</span> columns = [<span class="comment">/** Table列表项 **/</span>]</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">      &lt;XmTable</span><br><span class="line">        columns=&#123;columns&#125;</span><br><span class="line">      /&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>useSearchTable</strong><br>useSearchTable 是基于封装了Search组件和useTablehook,返回Table数据和SearchTable组件，代码如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123;useState, Fragment, useEffect&#125; <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> useTable <span class="keyword">from</span> <span class="string">'./use-table'</span></span><br><span class="line"><span class="keyword">import</span> Search <span class="keyword">from</span> <span class="string">"../Search"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (url, initialParams = &#123;&#125;, staticParams = &#123;&#125;) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> [ initialValues, setInitialValues ] = useState(initialParams)</span><br><span class="line">  <span class="keyword">const</span> &#123; table, XmTable &#125; = useTable(url, initialParams, staticParams)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> SearchTable = <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; schema, columns = [], onSearch, ...rest &#125; = props</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">const</span> handleSearch = <span class="function">(<span class="params">params = initialParams</span>) =&gt;</span> &#123;</span><br><span class="line">      setInitialValues(params)</span><br><span class="line">      table.onSearch(<span class="keyword">typeof</span> onSearch === <span class="string">'function'</span> ? onSearch(params) : params)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;Fragment&gt;</span><br><span class="line">        &lt;div className=<span class="string">"app-page__card"</span>&gt;</span><br><span class="line">          &lt;Search</span><br><span class="line">            schema=&#123;schema&#125;</span><br><span class="line">            onSearch=&#123;handleSearch&#125;</span><br><span class="line">            initialValues=&#123;initialValues&#125;</span><br><span class="line">          /&gt;</span><br><span class="line">        &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        &lt;div className="app-page__card"&gt;</span></span><br><span class="line"><span class="regexp">          &lt;XmTable</span></span><br><span class="line"><span class="regexp">            columns=&#123;columns&#125;</span></span><br><span class="line"><span class="regexp">            &#123;...rest&#125;</span></span><br><span class="line"><span class="regexp">          /</span>&gt;</span><br><span class="line">        &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>Fragment&gt;</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    table.onSearch(initialParams)</span><br><span class="line">  &#125;, [])</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    table,</span><br><span class="line">    SearchTable,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>案例：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">() =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; table, SearchTable &#125; = useSearchTable(<span class="string">'serviceOrder/list'</span>)</span><br><span class="line"> </span><br><span class="line">  <span class="comment">// 有时候需要列表搜索的参数，可以取值 table.params</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> schema = &#123; <span class="comment">/** Search搜索项 **/</span> &#125;</span><br><span class="line">  <span class="keyword">const</span> columns = [<span class="comment">/** Table列表项 **/</span>]</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;SearchTable</span><br><span class="line">        schema=&#123;schema&#125;</span><br><span class="line">        columns=&#123;columns&#125;</span><br><span class="line">    /&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><strong>useVisible</strong><br>useVisible 是对Antd Modal封装的hook，可以更方便的open/close，代码如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useState, useCallback &#125; <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 自定义 hook：用于弹出框的打开与关闭控制</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;boolean&#125;</span> </span>initVisible 初始化modal的显示状态</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (initVisible = <span class="literal">false</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> [params, setParams] = useState()</span><br><span class="line">  <span class="keyword">const</span> [visible, setVisible] = useState(initVisible)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> open = useCallback(<span class="function">(<span class="params">_params</span>) =&gt;</span> &#123;</span><br><span class="line">    setParams(_params)</span><br><span class="line">    setVisible(<span class="literal">true</span>)</span><br><span class="line">  &#125;, [])</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> close = useCallback(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    setParams()</span><br><span class="line">    setVisible(<span class="literal">false</span>)</span><br><span class="line">  &#125;, [])</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    params,</span><br><span class="line">    visible,</span><br><span class="line">    open,</span><br><span class="line">    close,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>案例：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">() =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> editModal = useVisible()</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">const</span> opem = <span class="function">(<span class="params">orderId</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// open 传递的参数</span></span><br><span class="line">      editModal.open(orderId)</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">  &#123;</span><br><span class="line">        editModal.visible &amp;&amp; (</span><br><span class="line">          &lt;EditModal</span><br><span class="line">            orderId=&#123;editModal.params&#125;</span><br><span class="line">            onCancel=&#123;editModal.close&#125;</span><br><span class="line">            onOk=&#123;() =&gt; &#123;</span><br><span class="line">              editModal.close()</span><br><span class="line">              table.onFetch()</span><br><span class="line">            &#125;&#125;</span><br><span class="line">          /&gt;</span><br><span class="line">        )</span><br><span class="line">      &#125;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Hooks包地址：<a href="https://github.com/zhaowei-plus/utils-hooks" target="_blank" rel="noopener">https://github.com/zhaowei-plus/utils-hooks</a></p>
+<h4 id="其他">其他</h4><p>更多自定义Hooks可以查看<a href="https://hooks.umijs.org/zh-CN/hooks/async" target="_blank" rel="noopener">umijs Hooks封装</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%B7%A5%E5%85%B7%E5%8C%85/" rel="tag"># 工具包</a>
+          
+            <a href="/tags/Hooks/" rel="tag"># Hooks</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/07/Js%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1/" rel="next" title="封装日常工具函数和Hooks">
+                <i class="fa fa-chevron-left"></i> 封装日常工具函数和Hooks
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/09/27/TS%20%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E4%B9%8Btype%E5%92%8Cinterface/" rel="prev" title="TS 基础系列之type和interface">
+                TS 基础系列之type和interface <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">赵伟</p>
+              <p class="site-description motion-element" itemprop="description">前段杂货铺，正在储货中...</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#封装日常工具函数和Hooks"><span class="nav-number">1.</span> <span class="nav-text">封装日常工具函数和Hooks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">1.1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#工具函数"><span class="nav-number">1.1.1.</span> <span class="nav-text">工具函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#组件"><span class="nav-number">1.1.2.</span> <span class="nav-text">组件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hooks"><span class="nav-number">1.1.3.</span> <span class="nav-text">Hooks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他"><span class="nav-number">1.1.4.</span> <span class="nav-text">其他</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">赵伟</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
