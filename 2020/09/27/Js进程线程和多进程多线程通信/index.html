@@ -1,0 +1,457 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Js进程线程和多进程多线程通信 | 谁家小谁谁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="[TOC] 线程与进程进程（Process）进程是一个具有一定独立功能的程序在一个数据集上的一次动态执行的过程，是操作系统进行资源分配和调度的一个独立单位，是应用程序运行的载体。 进程是一种抽象的概念，从来没有统一的标准定义。进程一般由程序、数据集合和进程控制块三部分组成：  程序用于描述进程要完成的功能，是控制进程执行的指令集； 数据集合是程序在执行时所需要的数据和工作区； 程序控制块(Prog">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Js进程线程和多进程多线程通信">
+<meta property="og:url" content="http://yoursite.com/2020/09/27/Js%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1/index.html">
+<meta property="og:site_name" content="谁家小谁谁">
+<meta property="og:description" content="[TOC] 线程与进程进程（Process）进程是一个具有一定独立功能的程序在一个数据集上的一次动态执行的过程，是操作系统进行资源分配和调度的一个独立单位，是应用程序运行的载体。 进程是一种抽象的概念，从来没有统一的标准定义。进程一般由程序、数据集合和进程控制块三部分组成：  程序用于描述进程要完成的功能，是控制进程执行的指令集； 数据集合是程序在执行时所需要的数据和工作区； 程序控制块(Prog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gw.aikan.miguvideo.com/ifs/img/b45a60769b3655c321ec921b36f99241_2.png">
+<meta property="og:image" content="https://gw.aikan.miguvideo.com/ifs/img/12204f0ca1fb0b5f996991f02fb8b6c9_1.png">
+<meta property="og:image" content="https://gw.aikan.miguvideo.com/ifs/img/682ca4ec5157e7dac5f8dcecb2a7e0ec_4.png">
+<meta property="article:published_time" content="2020-09-27T11:58:43.189Z">
+<meta property="article:modified_time" content="2021-04-12T05:55:51.242Z">
+<meta property="article:author" content="校尉">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gw.aikan.miguvideo.com/ifs/img/b45a60769b3655c321ec921b36f99241_2.png">
+  
+    <link rel="alternative" href="/atom.xml" title="谁家小谁谁" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+<meta name="generator" content="Hexo 4.2.1"></head>
+<body>
+<div id="container">
+  <div id="wrap">
+    <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">谁家小谁谁</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">前端小猿，努力工作</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="yoursite.com">
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+    <div class="outer">
+      <section id="main"><article id="post-Js进程线程和多进程多线程通信" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/09/27/Js%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1/" class="article-date">
+  <time datetime="2020-09-27T11:58:43.189Z" itemprop="datePublished">2020-09-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Js进程线程和多进程多线程通信
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h1 id="线程与进程"><a href="#线程与进程" class="headerlink" title="线程与进程"></a>线程与进程</h1><h2 id="进程（Process）"><a href="#进程（Process）" class="headerlink" title="进程（Process）"></a>进程（Process）</h2><p>进程是一个具有一定独立功能的程序在一个数据集上的一次动态执行的过程，是操作系统进行资源分配和调度的一个独立单位，是应用程序运行的载体。</p>
+<p>进程是一种抽象的概念，从来没有统一的标准定义。<br>进程一般由程序、数据集合和进程控制块三部分组成：</p>
+<ul>
+<li>程序用于描述进程要完成的功能，是控制进程执行的指令集；</li>
+<li>数据集合是程序在执行时所需要的数据和工作区；</li>
+<li>程序控制块(Program Control Block，简称PCB)，包含进程的描述信息和控制信息，是进程存在的唯一标志。</li>
+</ul>
+<p>在某一时刻，一个 CPU 中只能运行一个进程，它是在各个进程之间来回切换的，每个进程执行的速度也不确定。</p>
+<h2 id="线程（Thread）"><a href="#线程（Thread）" class="headerlink" title="线程（Thread）"></a>线程（Thread）</h2><p>线程是程序执行中一个单一的顺序控制流程，是程序执行流的最小单元，是处理器调度和分派的基本单位。</p>
+<p>线程的运行状态：<br><img src="https://gw.aikan.miguvideo.com/ifs/img/b45a60769b3655c321ec921b36f99241_2.png" alt=""></p>
+<h2 id="进程与线程的区别与联系"><a href="#进程与线程的区别与联系" class="headerlink" title="进程与线程的区别与联系"></a>进程与线程的区别与联系</h2><ol>
+<li>线程是程序执行的最小单位，而进程是操作系统分配资源的最小单位；</li>
+<li>一个进程由一个或多个线程组成，线程是一个进程中代码的不同执行路线；</li>
+<li>进程之间相互独立，但同一进程下的各个线程之间共享程序的内存空间(包括代码段、数据集、堆等)及一些进程级的资源(如打开文件和信号)，某进程内的线程在其它进程不可见；</li>
+<li>调度和切换：线程上下文切换比进程上下文切换要快得多。</li>
+</ol>
+<p>线程与进程关系的示意图：</p>
+<p><img src="https://gw.aikan.miguvideo.com/ifs/img/12204f0ca1fb0b5f996991f02fb8b6c9_1.png" alt="111"></p>
+<p>扩展：<a href="https://juejin.cn/post/6844903756866256909" target="_blank" rel="noopener">关于 cpu 进程调度算法</a></p>
+<h2 id="JavaScript中的线程与进程"><a href="#JavaScript中的线程与进程" class="headerlink" title="JavaScript中的线程与进程"></a>JavaScript中的线程与进程</h2><p>众所周知，javascript是单线程的，这是由于在早期js作为脚本语言只是用来辅助优化用户交互的，并没有赋予多线程能力。</p>
+<p>针对现在的js的线程和进程处理能力，主要区分为浏览器环境和node环境</p>
+<h3 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h3><p>浏览器是多进程的，系统给每个进程分配了资源（CPU、内存等），每打开一个Tab页，就相当于创建了一个独立的浏览器进程。</p>
+<p>浏览器主要包含了下面这个进程：</p>
+<ul>
+<li><p>Browser进程：浏览器的主进程，有且只有一个，负责协调和主控，只要有以下作用</p>
+<ul>
+<li>负责浏览器界面显示，与用户交互，如前进、后退等</li>
+<li>负责各个页面的管理、创建和销毁其他进程</li>
+<li>将Renderer进程得到的内存中的Bitmap，绘制到用户界面上</li>
+<li>网络资源的管理、下载等</li>
+</ul>
+</li>
+<li><p>Renderer进程（浏览器渲染进程，浏览器内核，内部是多线程的）：默认每一个Tab页面都是一个进程，互不影响。主要作用是 页面渲染、脚本执行、事件处理等</p>
+</li>
+<li><p>GPU进程：最多只有一个，用户3D绘制等</p>
+</li>
+<li><p>第三方插件进程：每种类型的插件对应一个进程，仅当使用该插件时才创建</p>
+</li>
+</ul>
+<h4 id="浏览器多进程的优势"><a href="#浏览器多进程的优势" class="headerlink" title="浏览器多进程的优势"></a>浏览器多进程的优势</h4><p>相比较与单进程浏览器，多进程有如下优势：</p>
+<ul>
+<li>避免单个Page Crash影响到整个浏览器</li>
+<li>避免第三方插件Crash于影响到整个浏览器</li>
+<li>多进程充分利用多核优势</li>
+<li>方便使用沙盒模型隔离插件等进程，提高浏览器的稳定性</li>
+</ul>
+<h4 id="渲染进程"><a href="#渲染进程" class="headerlink" title="渲染进程"></a>渲染进程</h4><p>对于前端开发人员来说，接触到最多的可能就是浏览器的渲染进程，渲染进程内部是多线程的，主要包括以下几个线程：</p>
+<ol>
+<li>GUI渲染线程</li>
+</ol>
+<ul>
+<li>负责渲染浏览器界面，解析HTML、CSS、构建DOM树和RenderObject树，布局和绘制等</li>
+<li>当界面需要重绘（Repaint）或由于某种操作引发回流(Reflow)时，改建成就绘制执行</li>
+<li>注意：GUI渲染线程和JS引擎线程是互斥的，当JS引擎执行时GUI线程绘被挂起（相当于被冻结），GUI更新会被保存在一个队列中等JS引擎空闲时立即被执行</li>
+</ul>
+<ol start="2">
+<li>JS引擎线程</li>
+</ol>
+<ul>
+<li>JS引擎线程也被成为JS内核，负责处理JavaScript脚本程序，如V8引擎</li>
+<li>JS引擎线程负责解析JavaScript脚本，运行代码</li>
+<li>JS引擎一直等待着任务队列中任务的到来，然后加以处理，一个Tab页（Renderer进程）中无论什么时候只有一个JS线程在执行JS程序</li>
+<li>同样注意，GUI渲染线程与JS引擎线程是互斥的，所以如果JS执行的时间过长，这样就会造成页面的渲染不连贯，导致页面渲染加载阻塞。</li>
+</ul>
+<ol start="3">
+<li>事件触发线程</li>
+</ol>
+<ul>
+<li>归属于浏览器而不是JS引擎，用来控制事件循环</li>
+<li>当JS引擎执行代码块如setTimeout时（也可来自浏览器内核的其他线程，如鼠标点击、Ajax异步请求等），会将对应的任务添加到事件线程中</li>
+<li>当对应的事件符合触发条件时被触发时，事件触发线程会把事件添加到等待处理队列中，等待JS引擎的处理</li>
+<li>注意：由于JS的但线程关系，所以这些待处理队列中的事件都得排队等待JS引擎处理（当JS引擎空闲时才会去执行）</li>
+</ul>
+<ol start="4">
+<li>定时器触发线程</li>
+</ol>
+<ul>
+<li>setInterval与setTimeout所在的线程</li>
+<li>浏览器定时器并不是有JavaScript引擎计数的（因为JavaScript引擎是但线程的，如果处于阻塞线程状态就会影响计时的准确性）</li>
+<li>通过单线程来计时并触发定时器事件（计时完毕后，添加到事件对勒中，等待JS引擎空闲后执行）</li>
+<li>注意：W3C在HTML标准中规定，要求setTimeout中低于4ms的时间间隔算为4ms</li>
+</ul>
+<ol start="5">
+<li>异步Http请求线程</li>
+</ol>
+<ul>
+<li>XMLHttpRequest在连接后，是通过浏览器新开一个线程来请求数据</li>
+<li>当监测到状态变更时，如果设置有回调函数，异步线程就产生状态变更事件，将回调放置事件队列中，再由JavaScript引擎执行</li>
+</ul>
+<h4 id="从Event-Loop谈JS的运行机制"><a href="#从Event-Loop谈JS的运行机制" class="headerlink" title="从Event Loop谈JS的运行机制"></a>从Event Loop谈JS的运行机制</h4><p>到这里我们已经知道了JS引擎是单线程的，在浏览器Event Loop中会涉及到下面几个线程概念：</p>
+<ul>
+<li>JS引擎线程</li>
+<li>事件触发线程</li>
+<li>定时触发线程</li>
+</ul>
+<p>对于JS中的其他概念如下：</p>
+<ul>
+<li>JS分为同步任务和异步任务</li>
+<li>同步任务都在主线程上执行，形成一个执行栈</li>
+<li>主线程之外，事件触发线程管理者一个任务队列，只要异步任务有了执行结果，就在任务队列中放置一个事件</li>
+<li>一旦执行栈中的所有同步任务执行完毕（此时JS引擎空闲），系统就会读取任务队列，将可运行的异步任务添加到执行栈中，开始继续执行</li>
+</ul>
+<p><img src="https://gw.aikan.miguvideo.com/ifs/img/682ca4ec5157e7dac5f8dcecb2a7e0ec_4.png" alt=""></p>
+<h4 id="JS多线程的实现"><a href="#JS多线程的实现" class="headerlink" title="JS多线程的实现"></a>JS多线程的实现</h4><p>由于JS引擎是单线程的，当JS执行事件过长会阻塞页面渲染，那么真多CPU密集型的计算该如何处理呢？</p>
+<p>针对这样的问题，在HTML5中支持了 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Workers_API/Using_web_workers" target="_blank" rel="noopener">Web Worker</a></p>
+<p>在MDN的解释中，一个Worker是使用一个构造函数创建的一个对象(e.g.worker())运行一个命名的JavaScript文件，这个文件包含将在工作线程中运行的代码</p>
+<p>workers运行在一个全局上下文中，不同于当前的window环境，所以在worker线程中，是不能通过window获取当前全局范围的数据</p>
+<p>可以这么理解：</p>
+<ul>
+<li>创建Worker时，JS引擎项浏览器申请新开一个子线程（子线程是浏览器创建的，完全手祝线程控制，并且不能操作DOM）</li>
+<li>JS引擎线程与worker线程间通过特定的方式通信（postMessage API，需要通过序列化对象来与线程交互特定的数据）</li>
+</ul>
+<p>扩展：<a href="https://juejin.cn/post/6844903589924569101" target="_blank" rel="noopener">关于Web Worker(专有) 和 SharedWorker（共享）线程通信</a><br><a href="https://juejin.cn/post/6844903736238669837" target="_blank" rel="noopener">https://juejin.cn/post/6844903736238669837</a></p>
+<p>一个Nodejs服务的简单构成：一个进程 + 一个线程 + 一个事件循环 + 一个 JS 引擎 + 一个 Node.js 实例</p>
+<h3 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h3><p>Node.js 是 Javascript 在服务端的运行环境，构建在 chrome 的 V8 引擎之上，基于事件驱动、非阻塞I/O模型，充分利用操作系统提供的异步 I/O 进行多任务的执行，适合于 I/O 密集型的应用场景，因为异步，程序无需阻塞等待结果返回，而是基于回调通知的机制，原本同步模式等待的时间，则可以用来处理其它任务</p>
+<blockquote>
+<p>科普：在 Web 服务器方面，著名的 Nginx 也是采用此模式（事件驱动），避免了多线程的线程创建、线程上下文切换的开销，Nginx 采用 C 语言进行编写，主要用来做高性能的 Web 服务器，不适合做业务。</p>
+</blockquote>
+<h4 id="Node中的进程"><a href="#Node中的进程" class="headerlink" title="Node中的进程"></a>Node中的进程</h4><p>nodejs中的进程Process是一个全局对象，给我们提供了进程相关信息，针对Node中的多进程模型，则是利用Node <a href="http://nodejs.cn/api/cluster.html#cluster_cluster" target="_blank" rel="noopener">Cluster模块</a>和 <a href="http://nodejs.cn/api/child_process.html#child_process_child_process" target="_blank" rel="noopener">child_process模块</a>，具体可以查看eggjs官方文档：<a href="https://eggjs.org/zh-cn/core/cluster-and-ipc.html" target="_blank" rel="noopener">多进程模型和进程间通讯</a></p>
+<h5 id="Node中的多进程"><a href="#Node中的多进程" class="headerlink" title="Node中的多进程"></a>Node中的多进程</h5><p>利用<a href="http://nodejs.cn/api/cluster.html#cluster_cluster" target="_blank" rel="noopener">Cluster模块</a>和 <a href="http://nodejs.cn/api/child_process.html#child_process_child_process" target="_blank" rel="noopener">child_process模块</a>可以实现多进程</p>
+<ul>
+<li>守护进程</li>
+</ul>
+<p>后台运行的特殊进程，不受任何终端控制的进程。</p>
+<ul>
+<li>工作进程</li>
+</ul>
+<h5 id="Node中的多线程"><a href="#Node中的多线程" class="headerlink" title="Node中的多线程"></a>Node中的多线程</h5><p>利用<a href="http://nodejs.cn/api/worker_threads.html#worker_threads_worker_threads" target="_blank" rel="noopener">worker_threads（工作线程）模块</a>可以实现多线程</p>
+<p>worker_threads模块提供了同时运行多个线程的能力</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ul>
+<li>[1] <a href="https://eggjs.org/zh-cn/core/cluster-and-ipc.html" target="_blank" rel="noopener">Eggjs 多进程模型和进程间通讯</a></li>
+<li>[2] <a href="https://www.cnblogs.com/zhangguicheng/p/12092058.html" target="_blank" rel="noopener">深入理解 Node.js 进程与线程</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://yoursite.com/2020/09/27/Js%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1/" data-id="ckkrntkva0001f20h1wwo2pfl" class="article-share-link" data-share="baidu" data-title="Js进程线程和多进程多线程通信">分享到</a>
+      
+
+      
+        <a href="http://yoursite.com/2020/09/27/Js%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/09/27/Docker%20%E5%A6%82%E4%BD%95%E9%83%A8%E7%BD%B2%20Node%20%E5%BA%94%E7%94%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">
+        
+          Docker 如何部署 Node 应用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/09/27/TS%20%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E4%B9%8Btype%E5%92%8Cinterface/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">TS 基础系列之type和interface</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2020/09/27/Js进程线程和多进程多线程通信/" data-title="Js进程线程和多进程多线程通信" data-url="http://yoursite.com/2020/09/27/Js%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1/"></div>
+  </section>
+</section>
+      
+      <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hooks/">Hooks</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Rxjs/">Rxjs</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Formily/" rel="tag">Formily</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hooks/" rel="tag">Hooks</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node/" rel="tag">Node</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Puppeteer/" rel="tag">Puppeteer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rxjs/" rel="tag">Rxjs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B/" rel="tag">响应式编程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7%E5%8C%85/" rel="tag">工具包</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A0%E5%A4%B4%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">无头浏览器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A1%A8%E5%8D%95/" rel="tag">表单</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Formily/" style="font-size: 10px;">Formily</a> <a href="/tags/Hooks/" style="font-size: 10px;">Hooks</a> <a href="/tags/Node/" style="font-size: 10px;">Node</a> <a href="/tags/Puppeteer/" style="font-size: 10px;">Puppeteer</a> <a href="/tags/Rxjs/" style="font-size: 10px;">Rxjs</a> <a href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B/" style="font-size: 10px;">响应式编程</a> <a href="/tags/%E5%B7%A5%E5%85%B7%E5%8C%85/" style="font-size: 10px;">工具包</a> <a href="/tags/%E6%97%A0%E5%A4%B4%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 10px;">无头浏览器</a> <a href="/tags/%E8%A1%A8%E5%8D%95/" style="font-size: 10px;">表单</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">近期文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/10/24/Node%20ORM%20Sequelize%20%E5%B0%8F%E8%AE%B0/">Node ORM Sequelize 小记</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/27/Js%E9%98%9F%E5%88%97%E5%87%BD%E6%95%B0%E5%92%8C%E5%BC%82%E6%AD%A5%E6%89%A7%E8%A1%8C%E8%A7%A3%E6%9E%90/">Js队列函数和异步执行解析</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/27/Docker%20%E5%A6%82%E4%BD%95%E9%83%A8%E7%BD%B2%20Node%20%E5%BA%94%E7%94%A8/">Docker 如何部署 Node 应用</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/27/Js%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1/">Js进程线程和多进程多线程通信</a>
+          </li>
+        
+          <li>
+            <a href="/2020/09/27/TS%20%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E4%B9%8Btype%E5%92%8Cinterface/">TS 基础系列之type和interface</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">友情链接</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="http://arvinxiang.com" target="_blank">主题作者</a>
+          </li>
+        
+          <li>
+            <a href="http://reqianduan.com" target="_blank">热前端</a>
+          </li>
+        
+          <li>
+            <a href="http://yuancheng.work" target="_blank">远程.work</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+      
+    </div>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 校尉<br>
+      Powered by <a href="//hexo.io/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape-plus</a>
+    </div>
+  </div>
+</footer>
+  </div>
+  <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+  <!-- totop start -->
+<div id="totop">
+<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+</div>
+
+<!-- totop end -->
+
+<!-- 多说公共js代码 start -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"reqianduan"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共js代码 end -->
+
+
+<!-- 百度分享 start -->
+
+<div id="article-share-box" class="article-share-box">
+  <div id="bdshare" class="bdsharebuttonbox article-share-links">
+    <a class="article-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a class="article-share-weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a class="article-share-qq" data-cmd="sqq" title="分享到QQ"></a>
+    <a class="article-share-renren" data-cmd="renren" title="分享到人人网"></a>
+    <a class="article-share-more" data-cmd="more" title="更多"></a>
+  </div>
+</div>
+<script>
+  function SetShareData(cmd, config) {
+    if (shareDataTitle && shareDataUrl) {
+      config.bdText = shareDataTitle;
+      config.bdUrl = shareDataUrl;
+    }
+    return config;
+  }
+  window._bd_share_config={
+    "common":{onBeforeClick: SetShareData},
+    "share":{"bdCustomStyle":"/css/bdshare.css"}
+  };
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+<!-- 百度分享 end -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+</div>
+</body>
+</html>

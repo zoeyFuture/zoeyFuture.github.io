@@ -6,21 +6,19 @@
   
   <title>Node ORM Sequelize 小记 | 谁家小谁谁</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] 线程与进程进程（Process）进程是一个具有一定独立功能的程序在一个数据集上的一次动态执行的过程，是操作系统进行资源分配和调度的一个独立单位，是应用程序运行的载体。 进程是一种抽象的概念，从来没有统一的标准定义。进程一般由程序、数据集合和进程控制块三部分组成：  程序用于描述进程要完成的功能，是控制进程执行的指令集； 数据集合是程序在执行时所需要的数据和工作区； 程序控制块(Prog">
+  <meta name="description" content="图片地址：https:&#x2F;&#x2F;global.uban360.com&#x2F;sfs&#x2F;file?digest&#x3D;fide187c6cabd9211c3e29dfabd9384faeb&amp;fileType&#x3D;2  [TOC] 前言Sequelize 是 Node.js 中常用的 ORM 库，其作用就是对数据库表和Js对象字段映射，让我们能够通过面向对象的方式去查询和操作数据库。 正文Sequelize支持">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Node ORM Sequelize 小记">
 <meta property="og:url" content="http://yoursite.com/2020/10/24/Node%20ORM%20Sequelize%20%E5%B0%8F%E8%AE%B0/index.html">
 <meta property="og:site_name" content="谁家小谁谁">
-<meta property="og:description" content="[TOC] 线程与进程进程（Process）进程是一个具有一定独立功能的程序在一个数据集上的一次动态执行的过程，是操作系统进行资源分配和调度的一个独立单位，是应用程序运行的载体。 进程是一种抽象的概念，从来没有统一的标准定义。进程一般由程序、数据集合和进程控制块三部分组成：  程序用于描述进程要完成的功能，是控制进程执行的指令集； 数据集合是程序在执行时所需要的数据和工作区； 程序控制块(Prog">
+<meta property="og:description" content="图片地址：https:&#x2F;&#x2F;global.uban360.com&#x2F;sfs&#x2F;file?digest&#x3D;fide187c6cabd9211c3e29dfabd9384faeb&amp;fileType&#x3D;2  [TOC] 前言Sequelize 是 Node.js 中常用的 ORM 库，其作用就是对数据库表和Js对象字段映射，让我们能够通过面向对象的方式去查询和操作数据库。 正文Sequelize支持">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gw.aikan.miguvideo.com/ifs/img/b45a60769b3655c321ec921b36f99241_2.png">
-<meta property="og:image" content="https://gw.aikan.miguvideo.com/ifs/img/12204f0ca1fb0b5f996991f02fb8b6c9_1.png">
-<meta property="og:image" content="https://gw.aikan.miguvideo.com/ifs/img/682ca4ec5157e7dac5f8dcecb2a7e0ec_4.png">
+<meta property="og:image" content="https://global.uban360.com/sfs/file?digest=fide187c6cabd9211c3e29dfabd9384faeb&fileType=2">
 <meta property="article:published_time" content="2020-10-24T06:22:17.517Z">
-<meta property="article:modified_time" content="2021-02-05T02:16:27.482Z">
+<meta property="article:modified_time" content="2021-04-12T05:55:34.874Z">
 <meta property="article:author" content="校尉">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gw.aikan.miguvideo.com/ifs/img/b45a60769b3655c321ec921b36f99241_2.png">
+<meta name="twitter:image" content="https://global.uban360.com/sfs/file?digest=fide187c6cabd9211c3e29dfabd9384faeb&fileType=2">
   
     <link rel="alternative" href="/atom.xml" title="谁家小谁谁" type="application/atom+xml">
   
@@ -100,139 +98,253 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>[TOC]</p>
-<h1 id="线程与进程"><a href="#线程与进程" class="headerlink" title="线程与进程"></a>线程与进程</h1><h2 id="进程（Process）"><a href="#进程（Process）" class="headerlink" title="进程（Process）"></a>进程（Process）</h2><p>进程是一个具有一定独立功能的程序在一个数据集上的一次动态执行的过程，是操作系统进行资源分配和调度的一个独立单位，是应用程序运行的载体。</p>
-<p>进程是一种抽象的概念，从来没有统一的标准定义。<br>进程一般由程序、数据集合和进程控制块三部分组成：</p>
-<ul>
-<li>程序用于描述进程要完成的功能，是控制进程执行的指令集；</li>
-<li>数据集合是程序在执行时所需要的数据和工作区；</li>
-<li>程序控制块(Program Control Block，简称PCB)，包含进程的描述信息和控制信息，是进程存在的唯一标志。</li>
-</ul>
-<p>在某一时刻，一个 CPU 中只能运行一个进程，它是在各个进程之间来回切换的，每个进程执行的速度也不确定。</p>
-<h2 id="线程（Thread）"><a href="#线程（Thread）" class="headerlink" title="线程（Thread）"></a>线程（Thread）</h2><p>线程是程序执行中一个单一的顺序控制流程，是程序执行流的最小单元，是处理器调度和分派的基本单位。</p>
-<p>线程的运行状态：<br><img src="https://gw.aikan.miguvideo.com/ifs/img/b45a60769b3655c321ec921b36f99241_2.png" alt=""></p>
-<h2 id="进程与线程的区别与联系"><a href="#进程与线程的区别与联系" class="headerlink" title="进程与线程的区别与联系"></a>进程与线程的区别与联系</h2><ol>
-<li>线程是程序执行的最小单位，而进程是操作系统分配资源的最小单位；</li>
-<li>一个进程由一个或多个线程组成，线程是一个进程中代码的不同执行路线；</li>
-<li>进程之间相互独立，但同一进程下的各个线程之间共享程序的内存空间(包括代码段、数据集、堆等)及一些进程级的资源(如打开文件和信号)，某进程内的线程在其它进程不可见；</li>
-<li>调度和切换：线程上下文切换比进程上下文切换要快得多。</li>
-</ol>
-<p>线程与进程关系的示意图：</p>
-<p><img src="https://gw.aikan.miguvideo.com/ifs/img/12204f0ca1fb0b5f996991f02fb8b6c9_1.png" alt="111"></p>
-<p>扩展：<a href="https://juejin.cn/post/6844903756866256909" target="_blank" rel="noopener">关于 cpu 进程调度算法</a></p>
-<h2 id="JavaScript中的线程与进程"><a href="#JavaScript中的线程与进程" class="headerlink" title="JavaScript中的线程与进程"></a>JavaScript中的线程与进程</h2><p>众所周知，javascript是单线程的，这是由于在早期js作为脚本语言只是用来辅助优化用户交互的，并没有赋予多线程能力。</p>
-<p>针对现在的js的线程和进程处理能力，主要区分为浏览器环境和node环境</p>
-<h3 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h3><p>浏览器是多进程的，系统给每个进程分配了资源（CPU、内存等），每打开一个Tab页，就相当于创建了一个独立的浏览器进程。</p>
-<p>浏览器主要包含了下面这个进程：</p>
-<ul>
-<li><p>Browser进程：浏览器的主进程，有且只有一个，负责协调和主控，只要有以下作用</p>
-<ul>
-<li>负责浏览器界面显示，与用户交互，如前进、后退等</li>
-<li>负责各个页面的管理、创建和销毁其他进程</li>
-<li>将Renderer进程得到的内存中的Bitmap，绘制到用户界面上</li>
-<li>网络资源的管理、下载等</li>
-</ul>
-</li>
-<li><p>Renderer进程（浏览器渲染进程，浏览器内核，内部是多线程的）：默认每一个Tab页面都是一个进程，互不影响。主要作用是 页面渲染、脚本执行、事件处理等</p>
-</li>
-<li><p>GPU进程：最多只有一个，用户3D绘制等</p>
-</li>
-<li><p>第三方插件进程：每种类型的插件对应一个进程，仅当使用该插件时才创建</p>
-</li>
-</ul>
-<h4 id="浏览器多进程的优势"><a href="#浏览器多进程的优势" class="headerlink" title="浏览器多进程的优势"></a>浏览器多进程的优势</h4><p>相比较与单进程浏览器，多进程有如下优势：</p>
-<ul>
-<li>避免单个Page Crash影响到整个浏览器</li>
-<li>避免第三方插件Crash于影响到整个浏览器</li>
-<li>多进程充分利用多核优势</li>
-<li>方便使用沙盒模型隔离插件等进程，提高浏览器的稳定性</li>
-</ul>
-<h4 id="渲染进程"><a href="#渲染进程" class="headerlink" title="渲染进程"></a>渲染进程</h4><p>对于前端开发人员来说，接触到最多的可能就是浏览器的渲染进程，渲染进程内部是多线程的，主要包括以下几个线程：</p>
-<ol>
-<li>GUI渲染线程</li>
-</ol>
-<ul>
-<li>负责渲染浏览器界面，解析HTML、CSS、构建DOM树和RenderObject树，布局和绘制等</li>
-<li>当界面需要重绘（Repaint）或由于某种操作引发回流(Reflow)时，改建成就绘制执行</li>
-<li>注意：GUI渲染线程和JS引擎线程是互斥的，当JS引擎执行时GUI线程绘被挂起（相当于被冻结），GUI更新会被保存在一个队列中等JS引擎空闲时立即被执行</li>
-</ul>
-<ol start="2">
-<li>JS引擎线程</li>
-</ol>
-<ul>
-<li>JS引擎线程也被成为JS内核，负责处理JavaScript脚本程序，如V8引擎</li>
-<li>JS引擎线程负责解析JavaScript脚本，运行代码</li>
-<li>JS引擎一直等待着任务队列中任务的到来，然后加以处理，一个Tab页（Renderer进程）中无论什么时候只有一个JS线程在执行JS程序</li>
-<li>同样注意，GUI渲染线程与JS引擎线程是互斥的，所以如果JS执行的时间过长，这样就会造成页面的渲染不连贯，导致页面渲染加载阻塞。</li>
-</ul>
-<ol start="3">
-<li>事件触发线程</li>
-</ol>
-<ul>
-<li>归属于浏览器而不是JS引擎，用来控制事件循环</li>
-<li>当JS引擎执行代码块如setTimeout时（也可来自浏览器内核的其他线程，如鼠标点击、Ajax异步请求等），会将对应的任务添加到事件线程中</li>
-<li>当对应的事件符合触发条件时被触发时，事件触发线程会把事件添加到等待处理队列中，等待JS引擎的处理</li>
-<li>注意：由于JS的但线程关系，所以这些待处理队列中的事件都得排队等待JS引擎处理（当JS引擎空闲时才会去执行）</li>
-</ul>
-<ol start="4">
-<li>定时器触发线程</li>
-</ol>
-<ul>
-<li>setInterval与setTimeout所在的线程</li>
-<li>浏览器定时器并不是有JavaScript引擎计数的（因为JavaScript引擎是但线程的，如果处于阻塞线程状态就会影响计时的准确性）</li>
-<li>通过单线程来计时并触发定时器事件（计时完毕后，添加到事件对勒中，等待JS引擎空闲后执行）</li>
-<li>注意：W3C在HTML标准中规定，要求setTimeout中低于4ms的时间间隔算为4ms</li>
-</ul>
-<ol start="5">
-<li>异步Http请求线程</li>
-</ol>
-<ul>
-<li>XMLHttpRequest在连接后，是通过浏览器新开一个线程来请求数据</li>
-<li>当监测到状态变更时，如果设置有回调函数，异步线程就产生状态变更事件，将回调放置事件队列中，再由JavaScript引擎执行</li>
-</ul>
-<h4 id="从Event-Loop谈JS的运行机制"><a href="#从Event-Loop谈JS的运行机制" class="headerlink" title="从Event Loop谈JS的运行机制"></a>从Event Loop谈JS的运行机制</h4><p>到这里我们已经知道了JS引擎是单线程的，在浏览器Event Loop中会涉及到下面几个线程概念：</p>
-<ul>
-<li>JS引擎线程</li>
-<li>事件触发线程</li>
-<li>定时触发线程</li>
-</ul>
-<p>对于JS中的其他概念如下：</p>
-<ul>
-<li>JS分为同步任务和异步任务</li>
-<li>同步任务都在主线程上执行，形成一个执行栈</li>
-<li>主线程之外，事件触发线程管理者一个任务队列，只要异步任务有了执行结果，就在任务队列中放置一个事件</li>
-<li>一旦执行栈中的所有同步任务执行完毕（此时JS引擎空闲），系统就会读取任务队列，将可运行的异步任务添加到执行栈中，开始继续执行</li>
-</ul>
-<p><img src="https://gw.aikan.miguvideo.com/ifs/img/682ca4ec5157e7dac5f8dcecb2a7e0ec_4.png" alt=""></p>
-<h4 id="JS多线程的实现"><a href="#JS多线程的实现" class="headerlink" title="JS多线程的实现"></a>JS多线程的实现</h4><p>由于JS引擎是单线程的，当JS执行事件过长会阻塞页面渲染，那么真多CPU密集型的计算该如何处理呢？</p>
-<p>针对这样的问题，在HTML5中支持了 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Workers_API/Using_web_workers" target="_blank" rel="noopener">Web Worker</a></p>
-<p>在MDN的解释中，一个Worker是使用一个构造函数创建的一个对象(e.g.worker())运行一个命名的JavaScript文件，这个文件包含将在工作线程中运行的代码</p>
-<p>workers运行在一个全局上下文中，不同于当前的window环境，所以在worker线程中，是不能通过window获取当前全局范围的数据</p>
-<p>可以这么理解：</p>
-<ul>
-<li>创建Worker时，JS引擎项浏览器申请新开一个子线程（子线程是浏览器创建的，完全手祝线程控制，并且不能操作DOM）</li>
-<li>JS引擎线程与worker线程间通过特定的方式通信（postMessage API，需要通过序列化对象来与线程交互特定的数据）</li>
-</ul>
-<p>扩展：<a href="https://juejin.cn/post/6844903589924569101" target="_blank" rel="noopener">关于Web Worker(专有) 和 SharedWorker（共享）线程通信</a><br><a href="https://juejin.cn/post/6844903736238669837" target="_blank" rel="noopener">https://juejin.cn/post/6844903736238669837</a></p>
-<p>一个Nodejs服务的简单构成：一个进程 + 一个线程 + 一个事件循环 + 一个 JS 引擎 + 一个 Node.js 实例</p>
-<h3 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h3><p>Node.js 是 Javascript 在服务端的运行环境，构建在 chrome 的 V8 引擎之上，基于事件驱动、非阻塞I/O模型，充分利用操作系统提供的异步 I/O 进行多任务的执行，适合于 I/O 密集型的应用场景，因为异步，程序无需阻塞等待结果返回，而是基于回调通知的机制，原本同步模式等待的时间，则可以用来处理其它任务</p>
+        <p><img src="https://global.uban360.com/sfs/file?digest=fide187c6cabd9211c3e29dfabd9384faeb&fileType=2" alt=""></p>
 <blockquote>
-<p>科普：在 Web 服务器方面，著名的 Nginx 也是采用此模式（事件驱动），避免了多线程的线程创建、线程上下文切换的开销，Nginx 采用 C 语言进行编写，主要用来做高性能的 Web 服务器，不适合做业务。</p>
+<p>图片地址：<a href="https://global.uban360.com/sfs/file?digest=fide187c6cabd9211c3e29dfabd9384faeb&amp;fileType=2" target="_blank" rel="noopener">https://global.uban360.com/sfs/file?digest=fide187c6cabd9211c3e29dfabd9384faeb&amp;fileType=2</a></p>
 </blockquote>
-<h4 id="Node中的进程"><a href="#Node中的进程" class="headerlink" title="Node中的进程"></a>Node中的进程</h4><p>nodejs中的进程Process是一个全局对象，给我们提供了进程相关信息，针对Node中的多进程模型，则是利用Node <a href="http://nodejs.cn/api/cluster.html#cluster_cluster" target="_blank" rel="noopener">Cluster模块</a>和 <a href="http://nodejs.cn/api/child_process.html#child_process_child_process" target="_blank" rel="noopener">child_process模块</a>，具体可以查看eggjs官方文档：<a href="https://eggjs.org/zh-cn/core/cluster-and-ipc.html" target="_blank" rel="noopener">多进程模型和进程间通讯</a></p>
-<h5 id="Node中的多进程"><a href="#Node中的多进程" class="headerlink" title="Node中的多进程"></a>Node中的多进程</h5><p>利用<a href="http://nodejs.cn/api/cluster.html#cluster_cluster" target="_blank" rel="noopener">Cluster模块</a>和 <a href="http://nodejs.cn/api/child_process.html#child_process_child_process" target="_blank" rel="noopener">child_process模块</a>可以实现多进程</p>
+<p>[TOC]</p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Sequelize 是 Node.js 中常用的 ORM 库，其作用就是对数据库表和Js对象字段映射，让我们能够通过面向对象的方式去查询和操作数据库。</p>
+<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><p>Sequelize支持 MySQL、PostgreSQL、SQLite 等很多数据库，在使用时可以根据自己环境做相应配置。</p>
+<p>我们使用的是mysql数据库，使用阿里的eggjs node服务端框架，本篇文档更多介绍项目使用上需要注意的点，关于 mysql 和 sequelize 的基础内容可以查看官方文档:<br><a href="https://dev.mysql.com/doc/" target="_blank" rel="noopener">mysql</a><br><a href="https://sequelize.org/master/identifiers.html" target="_blank" rel="noopener">sequelize</a></p>
+<h2 id="数据库配置"><a href="#数据库配置" class="headerlink" title="数据库配置"></a>数据库配置</h2><p>咱们使用的egg框架，在使用时需要安装sequelize依赖和mysql驱动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm i egg-sequelize mysql2 -S</span><br></pre></td></tr></table></figure>
+
+<p>在 config/config.js中添加并启动 sequelize 插件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sequelize: &#123;</span><br><span class="line">    enable: <span class="literal">true</span>, <span class="comment">// 启用插件，false 表示禁用此插件</span></span><br><span class="line">    package: <span class="string">'egg-sequelize'</span>,</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>启用 sequelize 映射mysql数据库，所以还需要配置mysql，在 config/config.default.js 添加配置信息，针对不同的环境配置中配置不同的数据源地址，可以查看 <a href="https://eggjs.org/zh-cn/tutorials/sequelize.html" target="_blank" rel="noopener">egg Sequelize</a> 文档，也可以参考我们另一篇文章：<a href="">eggjs 入门和使用</a> ：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// sequelize 配置</span></span><br><span class="line">config.equelize = &#123;</span><br><span class="line">  dialect: <span class="string">'mysql'</span>,</span><br><span class="line">  host: <span class="string">'127.0.0.1'</span>, <span class="comment">// 连接的数据库主机地址</span></span><br><span class="line">  port: <span class="number">3306</span>, <span class="comment">// mysql服务端口</span></span><br><span class="line">  database: <span class="string">'demo'</span>, <span class="comment">// 数据库名</span></span><br><span class="line">  username: <span class="string">'root'</span>,  <span class="comment">// 数据库用户名</span></span><br><span class="line">  password: <span class="string">'root'</span>, <span class="comment">// 数据库密码</span></span><br><span class="line">  define: &#123;  <span class="comment">// model的全局配置</span></span><br><span class="line">    freezeTableName: <span class="literal">true</span>,  <span class="comment">// 防止修改表名为复数</span></span><br><span class="line">    underscored: <span class="literal">true</span>,  <span class="comment">// 自动转换字段为snake_case版本</span></span><br><span class="line">    timestamps: <span class="literal">false</span>,   <span class="comment">// 取消时间戳</span></span><br><span class="line">    <span class="comment">// paranoid: true,   // 偏执表</span></span><br><span class="line">  &#125;,</span><br><span class="line">  timezone: <span class="string">'+8:00'</span>,  <span class="comment">// 由于 ORM 用的UTC时间，这里必须加上东八区，否则取出来的时间相差8小时</span></span><br><span class="line">  dialectOptions: &#123;  <span class="comment">// 让读取 date 类型数据时返回字符串而不是UTC时间</span></span><br><span class="line">    dateStrings: <span class="literal">true</span>,</span><br><span class="line">    typeCast(field, next) &#123;</span><br><span class="line">      <span class="keyword">if</span> (field.type === <span class="string">"DATETIME"</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> field.string();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> next();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 连接池</span></span><br><span class="line">  pool: &#123;</span><br><span class="line">    max: <span class="number">5</span>,</span><br><span class="line">    min: <span class="number">0</span>,</span><br><span class="line">    acquire: <span class="number">30000</span>,</span><br><span class="line">    idle: <span class="number">10000</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在 sequelize 配置 mysql 数据源时，有几项需要特别注意：</p>
 <ul>
-<li>守护进程</li>
+<li>freezeTableName</li>
 </ul>
-<p>后台运行的特殊进程，不受任何终端控制的进程。</p>
+<p>freezeTableName默认值是false，表示sequelize连接数据库时默认会将数据表名映射成复数形式，如 sequelize 定义的表 user，映射到 mysql 数据库表 users，这里配置为 true 禁止复数形式。</p>
 <ul>
-<li>工作进程</li>
+<li>underscored</li>
 </ul>
-<h5 id="Node中的多线程"><a href="#Node中的多线程" class="headerlink" title="Node中的多线程"></a>Node中的多线程</h5><p>利用<a href="http://nodejs.cn/api/worker_threads.html#worker_threads_worker_threads" target="_blank" rel="noopener">worker_threads（工作线程）模块</a>可以实现多线程</p>
-<p>worker_threads模块提供了同时运行多个线程的能力</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ul>
-<li>[1] <a href="https://eggjs.org/zh-cn/core/cluster-and-ipc.html" target="_blank" rel="noopener">Eggjs 多进程模型和进程间通讯</a></li>
-<li>[2] <a href="https://www.cnblogs.com/zhangguicheng/p/12092058.html" target="_blank" rel="noopener">深入理解 Node.js 进程与线程</a></li>
+<p>underscored比较好理解，表示在sequelize定义数据表时，字段会默认映射到 mysql 表中的下滑线表示的字段，如classId 会映射成 class_id。</p>
+<ul>
+<li>timestamps</li>
+</ul>
+<p>timestamps是配置时间戳字段，当为true时，会自定映射数据库表中的 created_at、updated_at和deleted_at三个字段，如果数据库表中没有定义这些字段，则映射时就会报错。<br>因为数据库中不是所有的表都需要时间戳字段，所以全局配置 timestamps 一般都是false，在具体表的定义时可以自行配置是否开启时间戳，具体可以查看下一节内容。</p>
+<ul>
+<li>timezone</li>
+</ul>
+<p>timezone是针对时间差的配置，这里需要加上加上东八区，确保时间的准确。</p>
+<ul>
+<li>dialectOptions</li>
+</ul>
+<p>dialectOptions 是针对数据库时间戳字段的格式化输出，在数据查询时就会自动格式化成我们配置的格式。</p>
+<ul>
+<li>pool</li>
+</ul>
+<p>pool是配置连接池<br>如果从单个进程连接到数据库,则应仅创建一个 Sequelize 实例. Sequelize 将在初始化时设置连接池. 可以通过构造函数的 options 参数(使用options.pool)配置此连接池,如以下示例所示:<br>如果从多个进程连接到数据库,则必须为每个进程创建一个实例,但每个实例应具有最大连接池大小,以便遵守总的最大大小.例如,如果你希望最大连接池大小为 90 并且你有三个进程,则每个进程的 Sequelize 实例的最大连接池大小应为 30.</p>
+<h2 id="表的定义"><a href="#表的定义" class="headerlink" title="表的定义"></a>表的定义</h2><p>egg项目中，一个数据表对应的是一个 app/model 目录下的一个文件，先运行创建数据库表的脚本，关于sql脚本请自行查询sql语法</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`student`</span> (</span><br><span class="line">  <span class="string">`id`</span> <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT <span class="keyword">COMMENT</span> <span class="string">'学生ID： 主键 + 自增'</span>,</span><br><span class="line">  <span class="string">`number`</span> <span class="built_in">varchar</span>(<span class="number">64</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'学号： 非空'</span>,</span><br><span class="line">  <span class="string">`password`</span> <span class="built_in">varchar</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'密码： 非空'</span>,</span><br><span class="line">  <span class="string">`class_id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'课程ID： 课程表外键'</span>,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8;</span><br></pre></td></tr></table></figure>
+
+<p>在app/model目录下声明映射文件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// app/modal/student.js</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="params">app</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; STRING, INTEGER &#125; = app.Sequelize;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> Student = app.model.define(<span class="string">'student'</span>, &#123;</span><br><span class="line">    id: &#123;</span><br><span class="line">      type: INTEGER,</span><br><span class="line">      autoIncrement: <span class="literal">true</span>,</span><br><span class="line">      primaryKey: <span class="literal">true</span>,</span><br><span class="line">      comment: <span class="string">'学生ID： 主键 + 自增'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    number: &#123;</span><br><span class="line">      type: STRING(<span class="number">11</span>),</span><br><span class="line">      allowNull: <span class="literal">false</span>,</span><br><span class="line">      comment: <span class="string">'学号： 非空'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    password: &#123;</span><br><span class="line">      type: STRING(<span class="number">32</span>),</span><br><span class="line">      allowNull: <span class="literal">false</span>,</span><br><span class="line">      comment: <span class="string">'密码： 非空'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    classId: &#123;</span><br><span class="line">      type: INTEGER(<span class="number">11</span>),</span><br><span class="line">      foreignKey: <span class="literal">true</span>,</span><br><span class="line">      comment: <span class="string">'课程ID： 课程表外键'</span>,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> Student;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>映射数据表字段定义时，mysql数据类型与Sequelize对应如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">Sequelize.STRING                      <span class="comment">// VARCHAR(255)</span></span><br><span class="line">Sequelize.STRING(<span class="number">1234</span>)                <span class="comment">// VARCHAR(1234)</span></span><br><span class="line">Sequelize.STRING.BINARY               <span class="comment">// VARCHAR BINARY</span></span><br><span class="line">Sequelize.TEXT                        <span class="comment">// TEXT</span></span><br><span class="line">Sequelize.TEXT(<span class="string">'tiny'</span>)                <span class="comment">// TINYTEXT</span></span><br><span class="line"></span><br><span class="line">Sequelize.INTEGER                     <span class="comment">// INTEGER</span></span><br><span class="line">Sequelize.BIGINT                      <span class="comment">// BIGINT</span></span><br><span class="line">Sequelize.BIGINT(<span class="number">11</span>)                  <span class="comment">// BIGINT(11)</span></span><br><span class="line"></span><br><span class="line">Sequelize.FLOAT                       <span class="comment">// FLOAT</span></span><br><span class="line">Sequelize.FLOAT(<span class="number">11</span>)                   <span class="comment">// FLOAT(11)</span></span><br><span class="line">Sequelize.FLOAT(<span class="number">11</span>, <span class="number">12</span>)               <span class="comment">// FLOAT(11,12)</span></span><br><span class="line"></span><br><span class="line">Sequelize.DOUBLE                      <span class="comment">// DOUBLE</span></span><br><span class="line">Sequelize.DOUBLE(<span class="number">11</span>)                  <span class="comment">// DOUBLE(11)</span></span><br><span class="line">Sequelize.DOUBLE(<span class="number">11</span>, <span class="number">12</span>)              <span class="comment">// DOUBLE(11,12)</span></span><br><span class="line"></span><br><span class="line">Sequelize.DECIMAL                     <span class="comment">// DECIMAL</span></span><br><span class="line">Sequelize.DECIMAL(<span class="number">10</span>, <span class="number">2</span>)              <span class="comment">// DECIMAL(10,2)</span></span><br><span class="line"></span><br><span class="line">Sequelize.DATE                        <span class="comment">// DATETIME 针对 mysql / sqlite, TIMESTAMP WITH TIME ZONE 针对 postgres</span></span><br><span class="line">Sequelize.DATE(<span class="number">6</span>)                     <span class="comment">// DATETIME(6) 针对 mysql 5.6.4+. 小数秒支持多达6位精度</span></span><br><span class="line">Sequelize.DATEONLY                    <span class="comment">// DATE 不带时间.</span></span><br><span class="line">Sequelize.BOOLEAN                     <span class="comment">// TINYINT(1)</span></span><br></pre></td></tr></table></figure>
+
+<p>字段属性值如下：</p>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>默认值</th>
+<th>是否必填</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>type</td>
+<td>Any</td>
+<td>无</td>
+<td>是</td>
+<td>字段数据类型</td>
+</tr>
+<tr>
+<td>primaryKey</td>
+<td>Boolean</td>
+<td>false</td>
+<td>否</td>
+<td>主键，一般每个数据库表都有一个主键</td>
+</tr>
+<tr>
+<td>autoIncrement</td>
+<td>Boolean</td>
+<td>false</td>
+<td>否</td>
+<td>自增，可以配置自增起始值</td>
+</tr>
+<tr>
+<td>allowNull</td>
+<td>Boolean</td>
+<td>false</td>
+<td>否</td>
+<td>是否允许为空</td>
+</tr>
+<tr>
+<td>defaultValue</td>
+<td>Any</td>
+<td>无</td>
+<td>否</td>
+<td>默认值，一般在时间戳上用的比较多</td>
+</tr>
+<tr>
+<td>field</td>
+<td>String</td>
+<td>字段名</td>
+<td>否</td>
+<td>自定义字段名，当名称和数据库字段不一样时（驼峰和下划线转换之后），配置字段映射</td>
+</tr>
+<tr>
+<td>unique</td>
+<td>Any</td>
+<td>无</td>
+<td>否</td>
+<td>唯一性约束</td>
+</tr>
+</tbody></table>
+<p>具体关于 sequelize model 的操作可以查看 <a href="https://sequelize.org/master/manual/model-basics.html" target="_blank" rel="noopener">文档</a></p>
+<h2 id="表的操作"><a href="#表的操作" class="headerlink" title="表的操作"></a>表的操作</h2><p>Sequelize 封装了底层sql语句提供有很多api，可以很方便的操作数据库，有兴趣可以查看官方文档：<a href="https://sequelize.org/master/index.html" target="_blank" rel="noopener">Sequelize</a></p>
+<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><p>Sequelize Api有很多的查询api，用的比较多的如 findAll、findOne、findByPk 等方法，其他请查看官方文档：<a href="https://sequelize.org/master/manual/model-querying-basics.html" target="_blank" rel="noopener">model-querying-basics</a></p>
+<p>这里以 student 表查询为例，主要讲述实际项目中可能会踩坑的点 </p>
+<ul>
+<li>条件查询</li>
+</ul>
+<p>条件查询又称where查询，即使用 where 关键字来做条件查询，如学生信息的模糊查询：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 模糊查询序号/姓名</span></span><br><span class="line">Student.findAll(&#123;</span><br><span class="line">  where: &#123;</span><br><span class="line">    [Sequelize.Op.or]: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="comment">// 姓名的模糊查询</span></span><br><span class="line">        name: &#123;</span><br><span class="line">          [Sequelize.Op.like]: <span class="string">"%"</span> + keyword + <span class="string">"%"</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="comment">// 学号的模糊查询</span></span><br><span class="line">        number: &#123;</span><br><span class="line">          [Sequelize.Op.like]: <span class="string">"%"</span> + keyword + <span class="string">"%"</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>注意网上有些案例会使用 $or 和$like 关键字，我们使用时可能会出现警告或报错，这是因为官方为了更好的安全性，强烈建议在代码中使用Sequelize.Op中的符号运算符，如Op.and/Op.or，而不依赖于任何基于同轴的运算符，如$and/$or。<br>如果非要使用的话，需要配置别名映射，配置方法如下：</p>
+<p>config/config.default.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">config.sequelize = &#123;</span><br><span class="line">  <span class="comment">// 使用默认运算符别名</span></span><br><span class="line">  operatorsAliases:&#123;</span><br><span class="line">    $eq: Op.eq,</span><br><span class="line">    $ne: Op.ne,</span><br><span class="line">    $gte: Op.gte,</span><br><span class="line">    $gt: Op.gt,</span><br><span class="line">    $lte: Op.lte,</span><br><span class="line">    $lt: Op.lt,</span><br><span class="line">    $not: Op.not,</span><br><span class="line">    $<span class="keyword">in</span>: Op.in,</span><br><span class="line">    $notIn: Op.notIn,</span><br><span class="line">    $is: Op.is,</span><br><span class="line">    $like: Op.like,</span><br><span class="line">    $notLike: Op.notLike,</span><br><span class="line">    $iLike: Op.iLike,</span><br><span class="line">    $notILike: Op.notILike,</span><br><span class="line">    $regexp: Op.regexp,</span><br><span class="line">    $notRegexp: Op.notRegexp,</span><br><span class="line">    $iRegexp: Op.iRegexp,</span><br><span class="line">    $notIRegexp: Op.notIRegexp,</span><br><span class="line">    $between: Op.between,</span><br><span class="line">    $notBetween: Op.notBetween,</span><br><span class="line">    $overlap: Op.overlap,</span><br><span class="line">    $contains: Op.contains,</span><br><span class="line">    $contained: Op.contained,</span><br><span class="line">    $adjacent: Op.adjacent,</span><br><span class="line">    $strictLeft: Op.strictLeft,</span><br><span class="line">    $strictRight: Op.strictRight,</span><br><span class="line">    $noExtendRight: Op.noExtendRight,</span><br><span class="line">    $noExtendLeft: Op.noExtendLeft,</span><br><span class="line">    $and: Op.and,</span><br><span class="line">    $or: Op.or,</span><br><span class="line">    $any: Op.any,</span><br><span class="line">    $all: Op.all,</span><br><span class="line">    $values: Op.values,</span><br><span class="line">    $col: Op.col</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 其他配置</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>分页查询</li>
+</ul>
+<p>在页面列表显示的时候，数据需要分页查询，要用到两个查询关键字：limit和offset，分别表示限制查询数量和跳过查询的数量。利用这两个关键字就可以很方便的执行分页查询</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取查询参数</span></span><br><span class="line"><span class="keyword">const</span> &#123; pageIndex, pageSize &#125; = ctx.request.query</span><br><span class="line"></span><br><span class="line">Student.findAndCountAll(&#123;</span><br><span class="line">  offset: (pageIndex - <span class="number">1</span>) * pageSize, <span class="comment">// offet 去掉前多少个数据</span></span><br><span class="line">  limit: pageSize, <span class="comment">// limit 每页数据数量</span></span><br><span class="line">&#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line"><span class="comment">// 查询结果</span></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    data: res.rows,</span><br><span class="line">    total: res.count,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>排序查询</li>
+</ul>
+<p>排序查询使用order 关键字，结合多个条件，实现顺序或倒序查询，如按id查询：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Student.findAndCountAll(&#123;</span><br><span class="line">  order: [</span><br><span class="line">	  <span class="comment">// 多添加排序，在下面新增条件即可</span></span><br><span class="line">	  [<span class="string">'id'</span>, <span class="string">'DESC'</span>], <span class="comment">// ASC 升序 DESC 降序</span></span><br><span class="line">	]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>联表查询</li>
+</ul>
+<p>相比较其他查询，联表查询会复杂一些，在查询之前需要明确标识表之间的映射关系（一对一、一对多或多对多），这里只介绍基本查询语法，详细请查看后面<strong>表的关联</strong>部分。</p>
+<p>联表查询使用了 include 关键字，表示需要连接其他数据表来查询。</p>
+<p>为了演示demo，我们在新建一个教师表，并修改 student 添加班主任字段：</p>
+<p>teacher</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`teacher`</span> (</span><br><span class="line">  <span class="string">`id`</span> <span class="built_in">int</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT <span class="keyword">COMMENT</span> <span class="string">'教师ID： 主键 + 自增'</span>,</span><br><span class="line">  <span class="string">`number`</span> <span class="built_in">varchar</span>(<span class="number">64</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'教师编号： 非空'</span>,</span><br><span class="line">  <span class="string">`name`</span> <span class="built_in">varchar</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'教师姓名： 非空'</span>,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8;</span><br></pre></td></tr></table></figure>
+
+<p>修改学生表，新增班主任ID（head_teacher_id）字段，关联教师表：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 修改 student，新增 head_teacher_id 字段</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="string">`student`</span> <span class="keyword">ADD</span> <span class="string">`head_teacher_id`</span> <span class="built_in">INT</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>  <span class="keyword">COMMENT</span> <span class="string">'班主任'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 设置外键关联</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="string">`student`</span> <span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> <span class="string">`fk_teacher_student`</span> <span class="keyword">FOREIGN</span> <span class="keyword">KEY</span> (<span class="string">`head_teacher_id`</span>) <span class="keyword">REFERENCES</span> <span class="string">`teacher`</span> (<span class="string">`id`</span>) ;</span><br></pre></td></tr></table></figure>
+
+<p>在查询 student 信息时，同时关联查询到班主任信息，需要两个步骤：设置关联关系、联表查询数据</p>
+<p>1.设置关联关系</p>
+<p>设置关联关系需要修改 student 表模型，添加外键字段和声明与teacher表的关系：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="params">app</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; INTEGER &#125; = app.Sequelize;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> Student = app.model.define(<span class="string">'student'</span>, &#123;</span><br><span class="line">    <span class="comment">// 	1、修改表字段</span></span><br><span class="line">    headerTeacherId: &#123;</span><br><span class="line">      type: INTEGER(<span class="number">11</span>),</span><br><span class="line">      foreignKey: <span class="literal">true</span>,</span><br><span class="line">      comment: <span class="string">'班主任ID'</span>,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2、声明关联关系，一对一关系，即一个学生只有一个班主任，其他还有 一对多、多对多关系 </span></span><br><span class="line">  app.model.Student.hasOne(app.model.Teacher, &#123;</span><br><span class="line">    foreignKey: <span class="string">'headerTeacherId'</span>, <span class="comment">// 外键约束</span></span><br><span class="line">    <span class="keyword">as</span>: <span class="string">'headerTeacher'</span>, <span class="comment">// 别名</span></span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> Student;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.联表查询数据</p>
+<p>使用 include 关键字，联表查询班主任数据：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Student.findByPk(id, &#123;</span><br><span class="line">  include: [</span><br><span class="line">    <span class="comment">// 联表查询，</span></span><br><span class="line">    &#123;</span><br><span class="line">      model: model.Teacher,</span><br><span class="line">      <span class="keyword">as</span>: <span class="string">"headerTeacher"</span>, <span class="comment">// 注意这里的别名一定要和 model 中的别名一样 </span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>注意：在列表查询的时候，为了查询性能考虑，尽量不要使用联表查询，类似在js 循环中不要做过多的操作，推荐分开查询学生和老师列表，再手动组装数据。</p>
+<h3 id="创建-更新"><a href="#创建-更新" class="headerlink" title="创建/更新"></a>创建/更新</h3><p>sequelize针对数据的创建和更新封装了很多方法，而我们用的比较多的几个方法就是：create、bulkCreate、update等，而 bulkCreate 这个方法比较特殊，即可以用于批量创建也可以批量更新，下面我们分别查看不同场景下的使用方式</p>
+<ul>
+<li>创建和批量创建</li>
+</ul>
+<p>sequelize中create和bulkCreate，分别是支持单条创建和批量创建，使用方式如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建单条记录</span></span><br><span class="line">Student.create(&#123;</span><br><span class="line">  number,</span><br><span class="line">  password,</span><br><span class="line">  classId,</span><br><span class="line">  headerTeacherId,</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 批量创建记录</span></span><br><span class="line">Student.bulkCreate([</span><br><span class="line">  &#123;</span><br><span class="line">    number,</span><br><span class="line">    password,</span><br><span class="line">    classId,</span><br><span class="line">    headerTeacherId,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 其他数据</span></span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+
+<p>当然这里针对类似学号这样的字段，一般都是按照固定格式自动生成，Sequelize也给我们提供了<strong>getter</strong>和<strong>setter</strong> 的便捷方式，类似于 Proxy的getter和setter：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Student = sequelize.define(<span class="string">'student'</span>, &#123;</span><br><span class="line">  <span class="comment">// 其他操作</span></span><br><span class="line">  password: &#123;</span><br><span class="line">    type: DataTypes.STRING,</span><br><span class="line">    <span class="keyword">get</span>() &#123;</span><br><span class="line">      <span class="comment">// 按照指定格式返回数据，一般用于虚拟字段</span></span><br><span class="line">      <span class="keyword">const</span> rawValue = <span class="keyword">this</span>.getDataValue(username);</span><br><span class="line">      <span class="keyword">return</span> rawValue ? rawValue.toUpperCase() : <span class="literal">null</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="keyword">set</span>(value) &#123;</span><br><span class="line">      <span class="comment">// 按照预定义规则配置数据</span></span><br><span class="line">      <span class="keyword">this</span>.setDataValue(<span class="string">'password'</span>, hash(value));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>更新</li>
+</ul>
+<p>Sequelize提供的 update 和 bulkCreate 都可以实现更新，参数稍有区别，返回值也不一样，具体可自行查阅：<a href="https://itbilu.com/nodejs/npm/V1PExztfb.html#api-bulkCreate" target="_blank" rel="noopener">文档</a>，这里值介绍bulkCreate批量更新</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Student.bulkCreate(vualueArray,</span><br><span class="line">	&#123;</span><br><span class="line">	</span><br><span class="line">		<span class="comment">// updateOnDuplicate 表示在插入的时候如果行键（主键）已存在，则更新那些字段</span></span><br><span class="line">		updateOnDuplicate: [<span class="string">'password'</span>, <span class="string">'headerTeacherId'</span>],</span><br><span class="line">	&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>这里 bulkCreate 更新数据的方式比较奇怪，它本身执行的其实是插入操作，只是在遇到主键已存在的时候，才会更新指定的字段，使用的时候需要注意，推荐添加注详细说明，避免代码歧义，也方便维护。</p>
+<p>而针对单条记录的更新还可以 findByPk/findOne + save 方式，这种方式其实就是先查询到某条记录，然后 set 字段值，最后调用 save 方法更新，没有什么好说的，看代码就完事：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1、查询数据</span></span><br><span class="line"><span class="keyword">const</span> student = <span class="keyword">await</span> model.Student.findByPk(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (student) &#123;</span><br><span class="line">  <span class="comment">// 2、设置字段值</span></span><br><span class="line">  student.set(<span class="string">'password'</span>, newPassword)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 3 更新到数据库</span></span><br><span class="line">  student.save()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除-恢复"><a href="#删除-恢复" class="headerlink" title="删除/恢复"></a>删除/恢复</h3><p>数据的删除可以调用 destroy 或 truncate（Model.destroy({ truncate: true })便捷方法），数据恢复调用restore， 这里不再多说，具体请查询：<a href="https://itbilu.com/nodejs/npm/V1PExztfb.html#api-bulkCreate" target="_blank" rel="noopener">文档</a></p>
+<p>注意当开启<strong>偏执表</strong>的时候，destroy 实际上是软删除操作，真实删除需要传 force 参数，具体可以查看：<a href="https://itbilu.com/nodejs/npm/V1PExztfb.html#api-bulkCreate" target="_blank" rel="noopener">文档</a>，关于<strong>偏执表</strong>请查看后面章节</p>
+<h2 id="表的关联"><a href="#表的关联" class="headerlink" title="表的关联"></a>表的关联</h2><p>数据库中联表查询很常见，当关联多个表做查询时，一定要梳理好各个数据表之间的关联关系，文档 <a href="https://sequelize.org/master/class/lib/associations/base.js~Association.html" target="_blank" rel="noopener">Sequelize Association文档</a>，讲述的非常清楚，在我们这里只介绍基础用法。</p>
+<p>这里我们以学生、老师、班级、课程为例，分别讲述下数据表中的 一</p>
+<ul>
+<li>一对一</li>
+</ul>
+<p>学生和信息表对应是一对一的关系，关系定义用到 hadOne 和 belongsTo 方法, 数据 model 定义如下：</p>
+<p>以学生表为源表，信息表为目标表</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 表的关联</span></span><br><span class="line">Student.associate = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 以学生为源表，信息表为目标表，使用 hasOne 表示一个学生有一条信息</span></span><br><span class="line">  app.model.Student.hasOne(app.model.Info,</span><br><span class="line">    &#123;</span><br><span class="line">      foreignKey: <span class="string">"infoId"</span>,</span><br><span class="line">      <span class="keyword">as</span>: <span class="string">"info"</span>, <span class="comment">// 别名</span></span><br><span class="line">    &#125;</span><br><span class="line">  )</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>以信息表为源表，学生表为目标表</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 表的关联</span></span><br><span class="line">Info.associate = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 以信息为源表，学生表为目标表，使用 belongsTo 表示一条信息属于一个学生</span></span><br><span class="line">  app.model.Info.belongsTo(app.model.Student,</span><br><span class="line">    &#123;</span><br><span class="line">      foreignKey: <span class="string">"student_id"</span>,</span><br><span class="line">      <span class="keyword">as</span>: <span class="string">"student"</span>, <span class="comment">// 别名</span></span><br><span class="line">    &#125;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>查询语句如下：</p>
+<p>查询学生表，连表查询学生信息</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Student.findByPk(id, &#123;</span><br><span class="line">	include: [</span><br><span class="line">		&#123;</span><br><span class="line">			model: model.Info,</span><br><span class="line">			<span class="keyword">as</span>: <span class="string">"info"</span>, <span class="comment">// 必须和associate中的名称一样</span></span><br><span class="line">			attributes: [<span class="string">"name"</span>, <span class="string">"mobile"</span>], <span class="comment">// 过滤需要的属性</span></span><br><span class="line">		&#125;</span><br><span class="line">	]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>查询信息表，连表查询学生信息</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Info.findByPk(id, &#123;</span><br><span class="line">  include: [</span><br><span class="line">    &#123;</span><br><span class="line">      model: model.Student,</span><br><span class="line">      <span class="keyword">as</span>: <span class="string">"student"</span>, <span class="comment">// 必须和associate中的名称一样</span></span><br><span class="line">      attributes: [<span class="string">"name"</span>, <span class="string">"mobile"</span>], <span class="comment">// 过滤需要的属性</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>一对多</li>
+</ul>
+<p>班级和学生的关系是一对多的关系，关系定义用到 hadMany 和 belongsTo 方法, 数据 model 定义如下：</p>
+<p>以班级表为源表，学生表为目标表</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 表的关联</span></span><br><span class="line">Class.associate = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 以班级表为源，学生表为目标，使用 hasMany 表示一个班级有多个学生</span></span><br><span class="line">  app.model.Class.hasMany(app.model.Student,</span><br><span class="line">    &#123;</span><br><span class="line">      foreignKey: <span class="string">"student_id"</span>,</span><br><span class="line">      <span class="keyword">as</span>: <span class="string">"student"</span>, <span class="comment">// 别名</span></span><br><span class="line">    &#125;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以学生表为源表，班级表为目标表</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 表的关联</span></span><br><span class="line">Student.associate = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 以学生表为源表，班级表为目标表，使用 belongsTo 表示一个学生属于某个班级</span></span><br><span class="line">  app.model.Student.belongsTo(app.model.Class,</span><br><span class="line">    &#123;</span><br><span class="line">      foreignKey: <span class="string">"classId"</span>,</span><br><span class="line">      <span class="keyword">as</span>: <span class="string">"class"</span>, <span class="comment">// 别名</span></span><br><span class="line">    &#125;</span><br><span class="line">  )</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>多对多</li>
+</ul>
+<p>学生和课程的关系就是多对多关系, 关系定义受用 hasMany 和 belongsToMany, 通过中间表 student_lesson 关联数据， 数据 model 定义如下：</p>
+<p>多对多关系，源数据表和目标数据表都可以使用 hasMany 和 belongsToMany 做关系映射，使用参数一样</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 表的关联</span></span><br><span class="line">Student.associate = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 查询当前学生有哪些课程</span></span><br><span class="line">  app.model.Student.hasMany(app.model.Lesson,</span><br><span class="line">    &#123;</span><br><span class="line">      through: app.model.StudentLesson, <span class="comment">// 通过中间表关联查询</span></span><br><span class="line">      foreignKey: <span class="string">"student_id"</span>, <span class="comment">// StudentLesson 对 Student 表的外键</span></span><br><span class="line">      otherKey: <span class="string">'lesson_id'</span>, <span class="comment">// StudentLesson 对 Lesson 表的外键，也可以不用声明，会自动匹配</span></span><br><span class="line">      <span class="keyword">as</span>: <span class="string">"lessons"</span>, <span class="comment">// 别名</span></span><br><span class="line">    &#125;</span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 或者</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 查询当前课程有哪些学生</span></span><br><span class="line">  app.model.Lesson.belongsToMany(app.model.Student,</span><br><span class="line">    &#123;</span><br><span class="line">      through: app.model.StudentLesson, <span class="comment">// 通过中间表关联查询 </span></span><br><span class="line">      foreignKey: <span class="string">"lesson_id"</span>, <span class="comment">// StudentLesson 对 Lesson 表的外键</span></span><br><span class="line">      otherKey: <span class="string">'student_id'</span>, <span class="comment">// StudentLesson 对 Student 表的外键，也可以不用声明，会自动匹配</span></span><br><span class="line">      <span class="keyword">as</span>: <span class="string">"students"</span>, <span class="comment">// 别名</span></span><br><span class="line">    &#125;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里需要注意的是，在关联数据表查询时，需要明确源表和目标表的关系是一对一、一对多还是多对多，在 associate 方法中正确声明关联方式，确保查询结果正常</p>
+<h2 id="偏执表"><a href="#偏执表" class="headerlink" title="偏执表"></a>偏执表</h2><p>对于需要删除的数据，一般不会深处真实数据，而是使用软删除，即用一个状态值来表示是否删除该条记录，从而保留数据库数据。</p>
+<p>在 Sequelize 中删除数据使用了字段 deletedAt 来表示数据是否被删除，当然使用这个字段需要 Sequelize 同时开启 timestamps 和 paranoid 配置项，表示会启用时间戳和软删除，这时自动插入 createdAt、updatedAt 和 deletedAt 这个时间戳字段。</p>
+<p>在创建数据表时的配置如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="params">app</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; INTEGER, DATE, NOW &#125; = app.Sequelize;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">const</span> Student = app.model.define(<span class="string">'student'</span>, &#123;</span><br><span class="line">      id: &#123;</span><br><span class="line">        type: INTEGER,</span><br><span class="line">        autoIncrement: <span class="literal">true</span>,</span><br><span class="line">        primaryKey: <span class="literal">true</span>,</span><br><span class="line">        comment: <span class="string">'学生ID： 主键 + 自增'</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">// 其他</span></span><br><span class="line">      gmtCreate: &#123;</span><br><span class="line">        type: DATE,</span><br><span class="line">        <span class="keyword">default</span>: NOW,</span><br><span class="line">        comment: <span class="string">"创建时间"</span></span><br><span class="line">      &#125;,</span><br><span class="line">      gmtModified: &#123;</span><br><span class="line">        type: DATE,</span><br><span class="line">        comment: <span class="string">"修改时间"</span></span><br><span class="line">      &#125;,</span><br><span class="line">      gmtDelete: &#123;</span><br><span class="line">        type: DATE,</span><br><span class="line">        comment: <span class="string">"删除标识"</span>,</span><br><span class="line">        description: <span class="string">'当值非空时，则表示被删除'</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      paranoid: <span class="literal">true</span>, <span class="comment">// 偏执表，用于软删除</span></span><br><span class="line">      timestamps: <span class="literal">true</span>, <span class="comment">// 启用时间戳</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">// 重命名时间戳字段</span></span><br><span class="line">      createdAt: <span class="string">"gmtCreate"</span>,</span><br><span class="line">      updatedAt: <span class="string">"gmtModified"</span>,</span><br><span class="line">      deletedAt: <span class="string">"gmtDelete"</span></span><br><span class="line">    &#125;</span><br><span class="line">  );</span><br><span class="line">  <span class="keyword">return</span> Student;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="事务处理"><a href="#事务处理" class="headerlink" title="事务处理"></a>事务处理</h2><p>在数据库中，事务是指一个最小的不可再分的工作但愿，通常一个事务对应一个完整的业务（例如银行账户转账业务，该业务就是一个最小的工作单元）</p>
+<p>事务的四大特征(ACID)：</p>
+<ol>
+<li><p>原子性（A）：事务只最小单元，不可再分</p>
+</li>
+<li><p>一致性（C）：事务要求所有的DML语句操作的时候，必须保证同时成功或者失败</p>
+</li>
+<li><p>隔离性（I）：事务A和事务B之间具有隔离性</p>
+</li>
+<li><p>持久性（D）：持久性是事务的保证，事务终结的标志</p>
+</li>
+</ol>
+<p>事务有很多专业术语，如开启事务、事务结束、提交事务、回滚事务等，而与事务相关的两条重要的 Sequelize 方法是：commit（提交）和 rollback（回滚）</p>
+<p>例如事务处理场景：</p>
+<p>新入职一个老师，需要为其分配教授班级和课程，这是一个完整的业务逻辑，需要使用事务确保完整性，在 Sequelize 中对业务处理流程如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> transaction;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  <span class="comment">// 创建事务</span></span><br><span class="line">  transaction = <span class="keyword">await</span> model.transaction();</span><br><span class="line">  <span class="comment">// 处理业务流程</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 步骤一：新增教师记录</span></span><br><span class="line">  <span class="keyword">const</span> &#123; <span class="attr">dataValues</span>: teacher &#125; = <span class="keyword">await</span> model.Teacher.create(rest, &#123;</span><br><span class="line">    transaction</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 步骤二：新增教授的课程列表：毛概、历史等课程</span></span><br><span class="line">  <span class="keyword">await</span> model.Lesson.bulkCreate(</span><br><span class="line">    lessons.map(<span class="function"><span class="params">lesson</span> =&gt;</span> (&#123; ...lesson, <span class="attr">teacherId</span>: teacher.id &#125;)),</span><br><span class="line">    &#123;</span><br><span class="line">      transaction</span><br><span class="line">    &#125;</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  <span class="comment">//  步骤三：新增教授的班级</span></span><br><span class="line">  <span class="keyword">await</span> model.Class.create(</span><br><span class="line">    &#123; ...class, <span class="attr">teacherId</span>: teacher.id &#125;,</span><br><span class="line">    &#123; transaction &#125;</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 事物提交</span></span><br><span class="line">  <span class="keyword">await</span> transaction.commit();</span><br><span class="line">  <span class="keyword">return</span> project;</span><br><span class="line">&#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">  <span class="comment">// 异常：事务回滚</span></span><br><span class="line">  <span class="keyword">await</span> transaction.rollback();</span><br><span class="line">  <span class="keyword">throw</span> error;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意对数据库中的复杂业务处理必须使用事务，确保数据流程正确</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>Node ORM Sequelize 对数据库的操作封装了很多便捷方法，在使用时可以参考本篇文档，避免踩坑，当然如果文档中的理解或使用方法有问题，欢迎指正。</p>
+<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><ul>
+<li>[1] <a href="https://sequelize.org/master/" target="_blank" rel="noopener">Sequelize 官网</a></li>
+<li>[2] <a href="https://www.sequelize.com.cn/" target="_blank" rel="noopener">Sequelize 中文文档</a></li>
+<li>[2] <a href="https://www.jb51.net/article/106782.htm" target="_blank" rel="noopener">关于Sequelize 联表查询时inlude中model和association的区别详解</a></li>
+<li>[3] <a href="https://juejin.im/post/6844903897673269255" target="_blank" rel="noopener">详细易用的 Sequelize 解读</a></li>
 </ul>
 
       
@@ -276,7 +388,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hooks/">Hooks</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Rxjs/">Rxjs</a><span class="category-list-count">2</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hooks/">Hooks</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Rxjs/">Rxjs</a><span class="category-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -285,7 +397,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Formily/" rel="tag">Formily</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hooks/" rel="tag">Hooks</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node/" rel="tag">Node</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Puppeteer/" rel="tag">Puppeteer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rxjs/" rel="tag">Rxjs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B/" rel="tag">响应式编程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7%E5%8C%85/" rel="tag">工具包</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A0%E5%A4%B4%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">无头浏览器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A1%A8%E5%8D%95/" rel="tag">表单</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Formily/" rel="tag">Formily</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hooks/" rel="tag">Hooks</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node/" rel="tag">Node</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Puppeteer/" rel="tag">Puppeteer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rxjs/" rel="tag">Rxjs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B/" rel="tag">响应式编程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7%E5%8C%85/" rel="tag">工具包</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A0%E5%A4%B4%E6%B5%8F%E8%A7%88%E5%99%A8/" rel="tag">无头浏览器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A1%A8%E5%8D%95/" rel="tag">表单</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -294,7 +406,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Formily/" style="font-size: 10px;">Formily</a> <a href="/tags/Hooks/" style="font-size: 20px;">Hooks</a> <a href="/tags/Node/" style="font-size: 10px;">Node</a> <a href="/tags/Puppeteer/" style="font-size: 10px;">Puppeteer</a> <a href="/tags/Rxjs/" style="font-size: 10px;">Rxjs</a> <a href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B/" style="font-size: 10px;">响应式编程</a> <a href="/tags/%E5%B7%A5%E5%85%B7%E5%8C%85/" style="font-size: 20px;">工具包</a> <a href="/tags/%E6%97%A0%E5%A4%B4%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 10px;">无头浏览器</a> <a href="/tags/%E8%A1%A8%E5%8D%95/" style="font-size: 10px;">表单</a>
+      <a href="/tags/Formily/" style="font-size: 10px;">Formily</a> <a href="/tags/Hooks/" style="font-size: 10px;">Hooks</a> <a href="/tags/Node/" style="font-size: 10px;">Node</a> <a href="/tags/Puppeteer/" style="font-size: 10px;">Puppeteer</a> <a href="/tags/Rxjs/" style="font-size: 10px;">Rxjs</a> <a href="/tags/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B/" style="font-size: 10px;">响应式编程</a> <a href="/tags/%E5%B7%A5%E5%85%B7%E5%8C%85/" style="font-size: 10px;">工具包</a> <a href="/tags/%E6%97%A0%E5%A4%B4%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 10px;">无头浏览器</a> <a href="/tags/%E8%A1%A8%E5%8D%95/" style="font-size: 10px;">表单</a>
     </div>
   </div>
 
@@ -303,7 +415,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -327,11 +439,11 @@
           </li>
         
           <li>
-            <a href="/2020/09/27/TS%20%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E4%B9%8Btype%E5%92%8Cinterface/">TS 基础系列之type和interface</a>
+            <a href="/2020/09/27/Js%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1/">Js进程线程和多进程多线程通信</a>
           </li>
         
           <li>
-            <a href="/2020/04/07/%E5%B0%81%E8%A3%85%E6%97%A5%E5%B8%B8%E5%B7%A5%E5%85%B7%E5%87%BD%E6%95%B0%E5%92%8CHooks/">封装日常工具函数和Hooks</a>
+            <a href="/2020/09/27/TS%20%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E4%B9%8Btype%E5%92%8Cinterface/">TS 基础系列之type和interface</a>
           </li>
         
       </ul>
