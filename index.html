@@ -74,6 +74,189 @@
     <div class="outer">
       <section id="main">
   
+    <article id="post-JavaScript 模块演化历程" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/02/05/JavaScript%20%E6%A8%A1%E5%9D%97%E6%BC%94%E5%8C%96%E5%8E%86%E7%A8%8B/" class="article-date">
+  <time datetime="2021-02-05T02:17:47.817Z" itemprop="datePublished">2021-02-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/05/JavaScript%20%E6%A8%A1%E5%9D%97%E6%BC%94%E5%8C%96%E5%8E%86%E7%A8%8B/">JavaScript 模块演化历程</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h1 id="前端模块化"><a href="#前端模块化" class="headerlink" title="前端模块化"></a>前端模块化</h1><p>前端模块化主要解决两个问题：命名空间冲突和文件依赖管理</p>
+<h1 id="JavaScript-模块演化历程"><a href="#JavaScript-模块演化历程" class="headerlink" title="JavaScript 模块演化历程"></a>JavaScript 模块演化历程</h1><h2 id="原始时期"><a href="#原始时期" class="headerlink" title="原始时期"></a>原始时期</h2><h3 id="直接定义依赖"><a href="#直接定义依赖" class="headerlink" title="直接定义依赖"></a>直接定义依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var a &#x3D; 10</span><br><span class="line">function funcA () &#123;&#125;</span><br><span class="line"></span><br><span class="line">var b &#x3D; 20</span><br><span class="line">function funcB () &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在原始时期，“模块化”是通过定义函数和共享变量，这种做法最明显的缺点就是污染全局变量，后面的重名的变量会覆盖前面使用的变量，各个模块之间也没有明显的依赖关系。</p>
+<h3 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var objA &#x3D; &#123;</span><br><span class="line">    a: 10,</span><br><span class="line">    funcA: function () &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var objB &#x3D; &#123;</span><br><span class="line">    b: 20,</span><br><span class="line">    funcB: function () &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>比较多的组织方式的可能会使用命名空间来表示变量，使用对象来约定变量的作用域</p>
+<h3 id="闭包模块化"><a href="#闭包模块化" class="headerlink" title="闭包模块化"></a>闭包模块化</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var module &#x3D; (function(module, $) &#123;</span><br><span class="line">    function privateMethod () &#123;&#125;</span><br><span class="line"></span><br><span class="line">    module.moduleProperty &#x3D; 1</span><br><span class="line">    module.moduleMethod &#x3D; function () &#123;</span><br><span class="line">        &#x2F;&#x2F; dosomething</span><br><span class="line">    &#125;</span><br><span class="line">    return module</span><br><span class="line">&#125;)(window.modules || &#123;&#125;, jQuery)</span><br></pre></td></tr></table></figure>
+
+<p>通过立即执行函数（IIFE），外部函数无法调用到里面的 privateMethod方法，解决了全局污染问题。</p>
+<p>同时这种模式还可以将模块拆分，在闭包内可以调用或继承其他子模块、添加新的变量和方法，最后返回新的模块。</p>
+<p>同样这种模块化的方式缺点也很明显，如：</p>
+<ul>
+<li>为了在模块内调用其他全局变量，必须显示注入全局变量，例如这里的jQuery</li>
+<li>当跨文件使用模块时，必须将模块挂载到全局变量（window）上</li>
+<li>没有解决如何管理这些模块的问题，各个模块之间的依赖关系需要通过 script 的引入顺序来保证</li>
+</ul>
+<h2 id="CommonJs"><a href="#CommonJs" class="headerlink" title="CommonJs"></a>CommonJs</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>从 1999 年开始，js模块化的探索都是基于语言层面上的优化，真正的改变要从2009年Commonjs的引入开始，后面的Node.js就是采用了CommonJs模块规范，其约定如下：</p>
+<ul>
+<li>每个文件都是一个模块，拥有自己的作用域。一个文件中定义的变量、函数、类，总是私有的，对其他文件不可见。</li>
+<li>exports指向module.exports，可以通过exports向module.exports对象中添加变量</li>
+<li>require用于加载模块（核心）</li>
+<li>每个模块内部，module变量代表当前模块。这个变量是一个对象，是Module的一个实例，它的exports属性（即module.exports）是对外的接口。加载某个模块，其实就是加载的该模块的module.exports对象</li>
+</ul>
+<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ul>
+<li>所有模块都运行在模块作用域，不会污染全局作用域</li>
+<li>模块加载的顺序，按照代码中出现的顺序执行（同步执行）</li>
+<li>模块输入的值是复制（基础类型为复制，引用类型为值引用），模块可以多次加载，但是只会在第一次加载时运行一次，然后运行结果就被缓存起来了，以后再加载，就直接读取缓存结果。想要让模块再次运行，必须清除缓存。</li>
+</ul>
+<h3 id="不足"><a href="#不足" class="headerlink" title="不足"></a>不足</h3><ul>
+<li>缺少模块封装的能力</li>
+</ul>
+<p>CommonJs规范中每个模块都是一个文件，这意味着每个文件只有一个模块。这在服务器端是可行的，但是在浏览器端会不俗很友好，浏览器中需要做到尽可能少的发起请求，通常一个文件中会有多个模块。</p>
+<ul>
+<li>使用同步的方式加载依赖。</li>
+</ul>
+<p>在浏览器中由于JS的加载会阻碍渲染，同步加载可能会导致白屏问题，对于用户体验是致命的。</p>
+<ul>
+<li>导出语法问题</li>
+</ul>
+<p>CommJs规范中使用了export的对象来暴露模块，将需要导出的变量附加到export上，但是要导出一个函数却只能使用 module.export，这种语法容易然人困惑。</p>
+<h3 id="其他疑问点"><a href="#其他疑问点" class="headerlink" title="其他疑问点"></a>其他疑问点</h3><ul>
+<li>模块的缓存</li>
+</ul>
+<p>第一次加载模块时，Node会缓存模块。之后在加载该模块时，直接从缓存中取出该模块的 module.exports 对象</p>
+<p>如果想要多次执行某个模块，可以在每次模块加载之前可以删除缓存的模块（require.cache中的缓存），代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 删除指定模块的缓存</span></span><br><span class="line"><span class="keyword">delete</span> <span class="built_in">require</span>.cache[moduleName];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 删除所有模块的缓存</span></span><br><span class="line"><span class="built_in">Object</span>.keys(<span class="built_in">require</span>.cache).forEach(<span class="function"><span class="keyword">function</span>(<span class="params">key</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">delete</span> <span class="built_in">require</span>.cache[key];</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>模块的加载机制</li>
+</ul>
+<p>CommonJs模块输出的是值的拷贝（基础类型为复制，引用类型为值引用）。也就是说，一旦输出一个值，模块内部的变化就不会影响到这个值</p>
+<ul>
+<li>模块的循环依赖</li>
+</ul>
+<p>CommonJS模块的重要特性是加载时执行，即脚本代码在require的时候，就会全部加载并执行。当出现某个模块被”循环加载”，就输出已执行的部分，还未执行的部分不会输出</p>
+<p>在模块内部，可以通过 require.main 属性，判断模块是直接运行，还是被调用执行，从而检测是被其他模块依赖。</p>
+<h2 id="AMD"><a href="#AMD" class="headerlink" title="AMD"></a>AMD</h2><h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>CommonJS规范在浏览器端并不太适用，主要得原因是 require 模块是同步加载的，这在服务器端问题不大，因为所有的模块都存放在本地，可以同步加载完成启动服务，加载耗时较短是可以接受的。</p>
+<p>但这对于浏览器却是有待考虑的问题，模块加载等待时间和文件大小以及网速相关，可能要等待很长时间，这段时间内浏览器则处于“假死”状态，失去相应或出现“白屏”现象。</p>
+<p>所以，浏览器端的模块就只能采用“异步加载”的方式，前端社区也出现AMD模块规范，用于满足在浏览器端模块的“异步加载”场景</p>
+<h3 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h3><p>AMD（Asynchronous Module Definition），即异步模块加载机制，该规范采用异步方式加载模块，模块的加载不影响后面语句的执行。</p>
+<h4 id="模块定义"><a href="#模块定义" class="headerlink" title="模块定义"></a>模块定义</h4><p>AMD规范定义了一个 define 关键字，用来定义和加载模块</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">define(id?, dependencies?, factory)</span><br></pre></td></tr></table></figure>
+
+<p>参数：</p>
+<ul>
+<li>id：模块标识，可以省略</li>
+<li>dependences：所依赖的模块数，可以省略</li>
+<li>factory：模块的实现，通常是一个对象</li>
+</ul>
+<h4 id="模块加载"><a href="#模块加载" class="headerlink" title="模块加载"></a>模块加载</h4><p>AMD规范中也使用require全局方法加载模块</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>([dependence], callback)</span><br></pre></td></tr></table></figure>
+
+<p>但AMD规范中的require不同于CommonJs规范，这里接受两个参数：</p>
+<ul>
+<li>dependences 需要配置前置的依赖</li>
+</ul>
+<p>只有所有前置依赖都加载完毕才会触发回调函数，dependences中的依赖是通过动态创建script和事件监听的方式来异步加载模块，解决了CommonJs同步加载耗时的问题</p>
+<ul>
+<li>callback 所有模块加载完毕之后的回调函数</li>
+</ul>
+<p>当前置依赖的所有模块加载完毕之后，会按照前置依赖的顺序作为callback的参数，在回调函数中就可以正常调用这些模块</p>
+<h3 id="代表作"><a href="#代表作" class="headerlink" title="代表作"></a>代表作</h3><p>RequireJs</p>
+<h2 id="UMD"><a href="#UMD" class="headerlink" title="UMD"></a>UMD</h2><h3 id="背景-1"><a href="#背景-1" class="headerlink" title="背景"></a>背景</h3><p>对于javaScript社区中中的各种不同规范的分裂状态，需要整合实现一个通用模块规范，由此促使UMD规范的出现</p>
+<h3 id="概述-2"><a href="#概述-2" class="headerlink" title="概述"></a>概述</h3><p>UMD（Universal Module Definnition），即通用模块定义模式，用来解决CommonJs规范和AMD规范的代码在服务端和浏览器端不通用的问题</p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>UMD规范实现比较简单，通过检测不同的环境使用不同的规范打包就可以了，大概处理流程如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">global, factory</span>) </span>&#123;</span><br><span class="line"><span class="comment">// CommonJS 规范</span></span><br><span class="line">    <span class="keyword">typeof</span> exports === <span class="string">'object'</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">module</span> !== <span class="string">'undefined'</span> ? <span class="built_in">module</span>.exports = factory() : </span><br><span class="line"></span><br><span class="line"><span class="comment">// AMD规范</span></span><br><span class="line">    <span class="keyword">typeof</span> define === <span class="string">'function'</span> &amp;&amp; define.amd ? define(factory) :</span><br><span class="line">    (global = global || self, global.myBundle = factory());</span><br><span class="line">&#125;(<span class="keyword">this</span>, (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; </span><br><span class="line">    <span class="keyword">const</span> main = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'hello world'</span>;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> main;</span><br><span class="line">&#125;)))</span><br></pre></td></tr></table></figure>
+
+<h2 id="ES-Module"><a href="#ES-Module" class="headerlink" title="ES Module"></a>ES Module</h2><h3 id="背景-2"><a href="#背景-2" class="headerlink" title="背景"></a>背景</h3><p>不管是CommonJS规范，还是AMD规范，都是前端社区实现的模块加载方案，对于js本身而言，始终没有实现与模块相关的功能，这就促使了ECMA对于js的模块规范纳入考虑之中</p>
+<h3 id="概述-3"><a href="#概述-3" class="headerlink" title="概述"></a>概述</h3><p>相对于CommonJs和AMD两种比较流程的社区模块加载方案，前者主要用于服务器端，后者主要用于浏览器端，ES2015终于在语言标准层面上，实现了模块功能：ES Module模块规范，而且语法更加简洁，更加人性化。</p>
+<p>ES Module模块规范主要由两个命令构成：</p>
+<p>export和import</p>
+<p>export命令用于规定模块的对外接口，</p>
+<p>import命令用于输入其他模块提供的功能。</p>
+<h3 id="特性-1"><a href="#特性-1" class="headerlink" title="特性"></a>特性</h3><p>Es6的模块不是对象，import命令会被JavaScript引擎解析，在编译时就引入模块代码，而不是在运行时加载，也正是因为如此，才使得静态分析成为可能，主要特性如下：</p>
+<ul>
+<li>ES Module会对静态代码分析，即在代码编译时进行模块的解析加载，在运行时之前就已经确定了依赖关系</li>
+<li>ES Module是动态引用，变量不会被缓存，而是成为一个指向加载模块的引用，只有在真正取值的时候才会进行计算</li>
+</ul>
+<h3 id="其他疑问点-1"><a href="#其他疑问点-1" class="headerlink" title="其他疑问点"></a>其他疑问点</h3><ul>
+<li>Es Moduel加载规则</li>
+</ul>
+<p>ES Module在编译时就会生成一个依赖树，依赖关系则是源于每一条“import”语句</p>
+<p>通过这些“import”语句，浏览器或Node.js会从依赖树的入口开始，沿着每条“import”语句找到对应的模块代码，但是浏览器不能直接使用这些文件，所有的文件都必须转换为一系列的称为“Module Reacord”（模块记录）的数据结构（类似于AST），Module Record会记录每个模块的内部状态信息和依赖关系。</p>
+<p>关于 ES Module 模块加载的详细过程可以参考文章：<a href="https://segmentfault.com/a/1190000020388889" target="_blank" rel="noopener">ES module工作原理</a>，也可以查看官方文档：<a href="https://tc39.es/ecma262/#sec-modules" target="_blank" rel="noopener">ECMA 16.2 Modules</a></p>
+<ul>
+<li>Es Module循环依赖</li>
+</ul>
+<p>A.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import &#123; counB &#125; from &#39;.&#x2F;B.js&#39;</span><br><span class="line">console.log(&#39;A counB:&#39;, counB)</span><br><span class="line">export const countA &#x3D; &#39;你好，我是A&#39;</span><br></pre></td></tr></table></figure>
+
+<p>B.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import &#123; counA &#125; from &#39;.&#x2F;A.js&#39;</span><br><span class="line">console.log(&#39;B counA:&#39;, counA)</span><br><span class="line">export const countB &#x3D; &#39;你好，我是B&#39;</span><br></pre></td></tr></table></figure>
+
+<p>当出现上面的情况时，就出现了 ES Module 的循环依赖问题，这其实是ES Module的模块实例的加载状态问题</p>
+<p>如前面所描述，在编译解析 ES Module 时，模块内部会生成一个 Module Map 的数据结构，用来记录 Module 当前状态，而在模块解析完毕时，会获取“Module Record”（模块记录）信息，导出相关数据。</p>
+<p>而当模块没有解析完成时，则被标记为Fetching状态，不做任何处理，也就不会导出任务数据，继续编译后面的代码。</p>
+<p>如当加载A.js模块时，由于A模块依赖了B模块，在遇到 import 时，进入B模块进行解析，而在B模块中又发现导入了A模块中的 counA，由于A模块并没有解析完毕，所以不会导出任何内容，所以这里就会报错：</p>
+<p><img src="https://global.uban360.com/sfs/file?digest=fidfde440a0ea48ff2e766d6ae642d05851&fileType=2" alt="">‘</p>
+<p>这也是ES Module模块和CommonJS模块的区别</p>
+<ul>
+<li>CommonJs vs ES Modules</li>
+</ul>
+<p>CommonJs规范和ES Module规范特性对比如下：</p>
+<ul>
+<li>CommonJS模块是“运行时加载”，而ES Module则是“编译时加载”</li>
+<li>CommonJS模块输出的拷贝（基础类型是拷贝，应用类型是值引用），即一旦输出一个值，模块内部的变化不会影响到这个值。而ES Module模块输出的是引用，只有在使用的时候才重新计算</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>JS的各个模块规范的出现都是基于当时需求的沉淀实现，可以更好的帮助开发者解决前端领域问题，而为了能够减少服务端和浏览器端的差异，Node.js和浏览器都实现了支持ES Module模块规范，让javaScript开发开更加友好。</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ul>
+<li>[ 1 ] <a href="https://juejin.cn/post/6940163713345257486" target="_blank" rel="noopener">javascript模块化演进及原理浅析</a></li>
+<li>[ 2 ] <a href="https://www.jianshu.com/p/88ed70476adb" target="_blank" rel="noopener">前端工程化的理解</a></li>
+<li>[ 3 ] <a href="https://juejin.cn/post/6844904056847073293" target="_blank" rel="noopener">你可能不知道的 JavaScript 模块化野史</a></li>
+<li>[ 4 ] <a href="https://segmentfault.com/a/1190000020388889" target="_blank" rel="noopener">ES module工作原理</a></li>
+<li>[ 5 ] <a href="https://esbuild.github.io/getting-started/#your-first-bundle" target="_blank" rel="noopener">EsBuild 官网</a></li>
+<li>[ 6 ] <a href="https://zhuanlan.zhihu.com/p/141863544" target="_blank" rel="noopener">webpack如何解决循环依赖</a></li>
+<li>[ 7 ] <a href="https://zhuanlan.zhihu.com/p/33049803" target="_blank" rel="noopener">webpack如何解决循环依赖</a></li>
+<li>[ 8 ] <a href="https://juejin.cn/post/6844903685466619911" target="_blank" rel="noopener">读懂CommonJS的模块加载</a></li>
+<li>[ 9 ] <a href="http://www.qiutianaimeili.com/html/page/2019/12/fnpo81u8ni9.html" target="_blank" rel="noopener">ES module和commonJS循环引用问题</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://yoursite.com/2021/02/05/JavaScript%20%E6%A8%A1%E5%9D%97%E6%BC%94%E5%8C%96%E5%8E%86%E7%A8%8B/" data-id="cknojeoqk00007g0hcnejgndd" class="article-share-link" data-share="baidu" data-title="JavaScript 模块演化历程">分享到</a>
+      
+
+      
+        <a href="http://yoursite.com/2021/02/05/JavaScript%20%E6%A8%A1%E5%9D%97%E6%BC%94%E5%8C%96%E5%8E%86%E7%A8%8B/#ds-thread" class="article-comment-link">评论</a>
+      
+
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Node ORM Sequelize 小记" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/10/24/Node%20ORM%20Sequelize%20%E5%B0%8F%E8%AE%B0/" class="article-date">
@@ -1477,7 +1660,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -1487,6 +1670,10 @@
     <h3 class="widget-title">近期文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/02/05/JavaScript%20%E6%A8%A1%E5%9D%97%E6%BC%94%E5%8C%96%E5%8E%86%E7%A8%8B/">JavaScript 模块演化历程</a>
+          </li>
         
           <li>
             <a href="/2020/10/24/Node%20ORM%20Sequelize%20%E5%B0%8F%E8%AE%B0/">Node ORM Sequelize 小记</a>
@@ -1502,10 +1689,6 @@
         
           <li>
             <a href="/2020/09/27/Js%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1/">Js进程线程和多进程多线程通信</a>
-          </li>
-        
-          <li>
-            <a href="/2020/09/27/TS%20%E5%9F%BA%E7%A1%80%E7%B3%BB%E5%88%97%E4%B9%8Btype%E5%92%8Cinterface/">TS 基础系列之type和interface</a>
           </li>
         
       </ul>
